@@ -86,6 +86,13 @@ FRIGATES = {
         "INPUT": f"{DRIVE_ROOT}/FRIGATE_07_ALCHIMISTE/INPUT/",
         "OUTPUT": f"{DRIVE_ROOT}/FRIGATE_07_ALCHIMISTE/OUTPUT/",
     },
+    "F08_PORTE_AVIONS": {
+        "NAME": "Frégate PORTE-AVIONS",
+        "DESCRIPTION": "Assemblage final - Encodage + Audio ASMR + Export multi-plateformes",
+        "CODEBASE": f"{DRIVE_ROOT}/FRIGATE_08_PORTE_AVIONS/",
+        "INPUT": f"{DRIVE_ROOT}/FRIGATE_08_PORTE_AVIONS/INPUT/",
+        "OUTPUT": f"{DRIVE_ROOT}/FRIGATE_08_PORTE_AVIONS/OUTPUT/",
+    },
 }
 
 # ============================================================================
@@ -159,6 +166,14 @@ F07_INPUT = FRIGATES["F07_ALCHIMISTE"]["INPUT"]
 F07_OUTPUT = FRIGATES["F07_ALCHIMISTE"]["OUTPUT"]
 
 # ============================================================================
+# RACCOURCIS F08_PORTE_AVIONS
+# ============================================================================
+
+F08_CODEBASE = FRIGATES["F08_PORTE_AVIONS"]["CODEBASE"]
+F08_INPUT = FRIGATES["F08_PORTE_AVIONS"]["INPUT"]
+F08_OUTPUT = FRIGATES["F08_PORTE_AVIONS"]["OUTPUT"]
+
+# ============================================================================
 # EXPORTS
 # ============================================================================
 
@@ -189,6 +204,9 @@ class PathConfig:
     
     ALCHIMISTE_OUTPUT = F07_OUTPUT
     TEMP_RENDER_PATH = f"{F07_OUTPUT}temp_render.mp4"
+    
+    PORTE_AVIONS_OUTPUT = FRIGATES["F08_PORTE_AVIONS"]["OUTPUT"]
+    FINAL_OUTPUT_PATH = f"{FRIGATES['F08_PORTE_AVIONS']['OUTPUT']}FINAL_SPECULUM_TOUR_4K.mp4"
 
 
 __all__ = [
@@ -207,6 +225,7 @@ __all__ = [
     'F05_CODEBASE', 'F05_INPUT', 'F05_OUTPUT',
     'F06_CODEBASE', 'F06_INPUT', 'F06_OUTPUT',
     'F07_CODEBASE', 'F07_INPUT', 'F07_OUTPUT',
+    'F08_CODEBASE', 'F08_INPUT', 'F08_OUTPUT',
     'ASSETSHUB_PATH',
     'PathConfig',
 ]
