@@ -254,34 +254,12 @@ TEMP_PATH = "/content/temp"
 
 ## 4. État Actuel du Développement
 
-### Phase 0: Fondations
-| ID | Tâche | Status | Date |
-|----|-------|--------|------|
-| P0-004 | SPECULUM_STATE.md | ✅ | 2026-02-06 |
-| P0-005 | SPECULUM_PRD.md | ✅ | 2026-02-06 |
-| P0-006 | SPECULUM_ROADMAP.md | ✅ | 2026-02-06 |
-| P0-010 | Template Colab | ✅ | 2026-02-06 |
-| P0-011 | Script installation | ✅ | 2026-02-06 |
-| P0-012 | Setup Blender headless | ✅ | 2026-02-06 |
-| P0-013 | Test import bpy | ✅ | 2026-02-06 |
-
-### Environnement Validé
-- ✅ Google Colab T4 GPU
-- ✅ PyTorch + CUDA 11.8
-- ✅ Blender 4.0 headless (bpy)
-- ✅ Rendu Cycles GPU fonctionnel
-- ✅ Structure Sanctum Google Drive
-
----
-
 ### 4.1 Checklist Globale
 
 | Composant | Status | Progression |
 |-----------|--------|-------------|
 | Hexagramme documentaire | ✅ Complet | 100% |
-| Template Colab P0 | ✅ Complet | 100% |
-| P0-B Ressources Partagées | ✅ Complet | 100% |
-| F01-SCANNER | ⬜ À faire | 0% |
+| F01-SCANNER | ✅ Complet | 100% |
 | F02-CORTEX | ⬜ À faire | 0% |
 | F03-SCÉNOGRAPHE | ⬜ À faire | 0% |
 | F04-PROJECTIONNISTE | ⬜ À faire | 0% |
@@ -292,30 +270,27 @@ TEMP_PATH = "/content/temp"
 | Tests unitaires | ⬜ À faire | 0% |
 | Tests intégration | ⬜ À faire | 0% |
 
-### 4.3 Sprint P0-B: Ancrage Ressources Partagées
-
-| Tâche | Description | Status | Date |
-|-------|-------------|--------|------|
-| P0-014 | Test Gemini API / Depth Model | ✅ | 2026-02-06 |
-| P0-015 | Structure ASSETS_HUB + Library Linking | ✅ | 2026-02-06 |
-
-### 4.4 Ressources Partagées Validées
-
-- ✅ Structure EXODUS_SHARED_RESOURCES créée
-- ✅ Chemin AI_MODELS accessible
-- ✅ Chemin ASSETS_HUB accessible  
-- ✅ Blender Library Linking fonctionnel
-- ✅ Custom properties préservées (Ghost Proxy)
-- ⏳ Latence chargement modèle: À mesurer sur Colab (cible < 30s)
-
 ### 4.2 Détail par Frégate
 
 #### F01-SCANNER
-- [ ] Frame extraction (FFmpeg)
-- [ ] Depth Anything V2 integration
+- [x] Frame extraction (FFmpeg) ✅ 2026-02-06
+- [x] Depth Anything V2 integration ✅ 2026-02-06
 - [ ] YOLOv8 object detection
 - [ ] SAM segmentation
-- [ ] spatial_data.json export
+- [x] spatial_data.json export ✅ 2026-02-06
+
+**Tâches F01 complétées:**
+| ID | Tâche | Status | Date |
+|----|-------|--------|------|
+| F01-001 | Script extraction frames FFmpeg | ✅ | 2026-02-06 |
+| F01-002 | Paramétrer fps extraction | ✅ | 2026-02-06 |
+| F01-003 | Gérer formats vidéo multiples | ✅ | 2026-02-06 |
+| F01-004 | Intégration Depth Anything V2 | ✅ | 2026-02-06 |
+| F01-005 | Download modèle ViT-Large | ✅ | 2026-02-06 |
+| F01-006 | Inference depth single frame | ✅ | 2026-02-06 |
+| F01-007 | Batch inference depth | ✅ | 2026-02-06 |
+| F01-008 | Export PNG 16-bit | ✅ | 2026-02-06 |
+| F01-009 | Optimisation VRAM depth | ✅ | 2026-02-06 |
 
 #### F02-CORTEX
 - [ ] Gemini API integration
@@ -410,4 +385,4 @@ TEMP_PATH = "/content/temp"
 ---
 
 *Dernière mise à jour: 2026-02-06*
-*Version: 0.2.0-alpha (P0-A + P0-B validés)*
+*Version: 0.2.0-alpha (F01-SCANNER)*
