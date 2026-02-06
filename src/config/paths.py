@@ -65,12 +65,12 @@ FRIGATES = {
         "INPUT": f"{DRIVE_ROOT}/FRIGATE_04_PROJECTIONNISTE/INPUT/",
         "OUTPUT": f"{DRIVE_ROOT}/FRIGATE_04_PROJECTIONNISTE/OUTPUT/",
     },
-    "F05_COMPOSITOR": {
-        "NAME": "Frégate COMPOSITOR",
-        "DESCRIPTION": "Upscaling + Interpolation + Export final",
-        "CODEBASE": f"{DRIVE_ROOT}/FRIGATE_05_COMPOSITOR/",
-        "INPUT": f"{DRIVE_ROOT}/FRIGATE_05_COMPOSITOR/INPUT/",
-        "OUTPUT": f"{DRIVE_ROOT}/FRIGATE_05_COMPOSITOR/OUTPUT/",
+    "F05_LOGISTIQUE": {
+        "NAME": "Frégate LOGISTIQUE",
+        "DESCRIPTION": "Asset replacement - Ghost Proxy → Real 3D Assets",
+        "CODEBASE": f"{DRIVE_ROOT}/FRIGATE_05_LOGISTIQUE/",
+        "INPUT": f"{DRIVE_ROOT}/FRIGATE_05_LOGISTIQUE/INPUT/",
+        "OUTPUT": f"{DRIVE_ROOT}/FRIGATE_05_LOGISTIQUE/OUTPUT/",
     },
     "F06_DIRECTOR": {
         "NAME": "Frégate DIRECTEUR PHOTO",
@@ -129,12 +129,18 @@ F04_INPUT = FRIGATES["F04_PROJECTIONNISTE"]["INPUT"]
 F04_OUTPUT = FRIGATES["F04_PROJECTIONNISTE"]["OUTPUT"]
 
 # ============================================================================
-# RACCOURCIS F05_COMPOSITOR
+# RACCOURCIS F05_LOGISTIQUE
 # ============================================================================
 
-F05_CODEBASE = FRIGATES["F05_COMPOSITOR"]["CODEBASE"]
-F05_INPUT = FRIGATES["F05_COMPOSITOR"]["INPUT"]
-F05_OUTPUT = FRIGATES["F05_COMPOSITOR"]["OUTPUT"]
+F05_CODEBASE = FRIGATES["F05_LOGISTIQUE"]["CODEBASE"]
+F05_INPUT = FRIGATES["F05_LOGISTIQUE"]["INPUT"]
+F05_OUTPUT = FRIGATES["F05_LOGISTIQUE"]["OUTPUT"]
+
+# ============================================================================
+# ASSETSHUB - Bibliothèque d'assets 3D
+# ============================================================================
+
+ASSETSHUB_PATH = f"{DRIVE_ROOT}/ASSETSHUB/"
 
 # ============================================================================
 # RACCOURCIS F06_DIRECTOR
@@ -173,6 +179,10 @@ class PathConfig:
     
     PROJECTIONNISTE_OUTPUT = F04_OUTPUT
     SCENE_PROJECTED_PATH = f"{F04_OUTPUT}scene_projected.blend"
+    
+    LOGISTIQUE_OUTPUT = F05_OUTPUT
+    SCENE_FURNISHED_PATH = f"{F05_OUTPUT}scene_furnished.blend"
+    ASSETSHUB_PATH = ASSETSHUB_PATH
 
 
 __all__ = [
@@ -191,5 +201,6 @@ __all__ = [
     'F05_CODEBASE', 'F05_INPUT', 'F05_OUTPUT',
     'F06_CODEBASE', 'F06_INPUT', 'F06_OUTPUT',
     'F07_CODEBASE', 'F07_INPUT', 'F07_OUTPUT',
+    'ASSETSHUB_PATH',
     'PathConfig',
 ]
