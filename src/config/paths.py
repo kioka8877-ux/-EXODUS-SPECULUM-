@@ -183,6 +183,9 @@ class PathConfig:
     LOGISTIQUE_OUTPUT = F05_OUTPUT
     SCENE_FURNISHED_PATH = f"{F05_OUTPUT}scene_furnished.blend"
     ASSETSHUB_PATH = ASSETSHUB_PATH
+    
+    DIRECTEUR_PHOTO_OUTPUT = F06_OUTPUT
+    SCENE_ANIMATED_PATH = f"{F06_OUTPUT}scene_animated.blend"
 
 
 __all__ = [

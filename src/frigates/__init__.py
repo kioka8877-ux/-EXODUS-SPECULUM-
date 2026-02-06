@@ -4,14 +4,14 @@ Pipeline de transformation vidéo → 3D.
 """
 
 try:
-    from . import f01_scanner
-except ImportError:
-    f01_scanner = None
-
-try:
     from . import f00_cortex
 except ImportError:
     f00_cortex = None
+
+try:
+    from . import f01_scanner
+except ImportError:
+    f01_scanner = None
 
 try:
     from . import f03_scenographe
@@ -23,4 +23,21 @@ try:
 except ImportError:
     f04_projectionniste = None
 
-__all__ = ['f01_scanner', 'f00_cortex', 'f03_scenographe', 'f04_projectionniste']
+try:
+    from . import f05_logistique
+except ImportError:
+    f05_logistique = None
+
+try:
+    from . import f06_directeur_photo
+except ImportError:
+    f06_directeur_photo = None
+
+__all__ = [
+    'f00_cortex',
+    'f01_scanner',
+    'f03_scenographe',
+    'f04_projectionniste',
+    'f05_logistique',
+    'f06_directeur_photo',
+]
