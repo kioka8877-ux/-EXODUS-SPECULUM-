@@ -30,6 +30,43 @@
 
 ---
 
+### [2026-02-06] - F01-A: Frégate SCANNER - Extraction & Depth
+
+**Contexte:** 
+Phase 1 Sprint F01-A - Implémentation de la Frégate SCANNER pour extraction de frames et estimation de profondeur.
+
+**Solution:**
+- `frame_extractor.py`: Extraction via FFmpeg, support multi-format (MP4, MOV, AVI, MKV, WEBM)
+- `depth_estimator.py`: Depth Anything V2 avec gestion VRAM T4
+- `scanner_pipeline.py`: Orchestration complète des stages
+
+**Code critique:**
+```python
+# Depth normalisé [0,1] → 16-bit PNG
+depth = (depth - depth.min()) / (depth.max() - depth.min() + 1e-8)
+depth_16bit = (depth * 65535).astype(np.uint16)
+cv2.imwrite(output_path, depth_16bit)
+```
+
+**Optimisations VRAM:**
+- Batch size = 1 pour ViT-Large (~4.5GB)
+- `torch.cuda.empty_cache()` toutes les 50 frames
+- Cleanup explicite après traitement
+- Device detection automatique (CUDA/CPU)
+
+**Résultats:** 
+- Extraction frames: ~0.1s/frame
+- Depth estimation ViT-Large: ~2s/frame (T4 GPU)
+- VRAM usage: <6GB stable
+
+**Leçon apprise:** 
+Le modèle ViT-Large de Depth Anything V2 est optimal pour notre cas (qualité/VRAM). Ne pas utiliser Giant sur T4 (OOM).
+
+**Liens:**
+- Commit: `🔍 F01-A: Frégate SCANNER - Extraction frames & Depth Anything V2`
+
+---
+
 ### [2026-02-06] - Initialisation du projet EXODUS-SPECULUM
 
 **Contexte:** 
@@ -89,7 +126,7 @@ pass
 ## Index par Sujet
 
 ### Depth Estimation
-- *(à venir)*
+- [2026-02-06] F01-A: Depth Anything V2 integration
 
 ### Camera Projection
 - *(à venir)*
@@ -125,7 +162,16 @@ pass
 
 ### Depth Anything V2 Inference
 ```python
-# À documenter après implémentation
+from depth_anything_v2.dpt import DepthAnythingV2
+
+# Config ViT-Large
+model = DepthAnythingV2(encoder='vitl', features=256, out_channels=[256, 512, 1024, 1024])
+model.load_state_dict(torch.load('depth_anything_v2_vitl.pth'))
+model.to('cuda').eval()
+
+# Inference
+with torch.no_grad():
+    depth = model.infer_image(rgb_image)  # Returns normalized depth
 ```
 
 ### Gemini Vision API Call
@@ -135,7 +181,8 @@ pass
 
 ### FFmpeg Frame Extraction
 ```bash
-# À documenter après implémentation
+# Extraction à 2 fps en PNG lossless
+ffmpeg -y -i input.mp4 -vf fps=2.0 -pix_fmt rgb24 frame_%04d.png
 ```
 
 ### Real-ESRGAN Batch
@@ -165,4 +212,4 @@ pass
 ---
 
 *Dernière mise à jour: 2026-02-06*
-*Entrées: 1*
+*Entrées: 2*

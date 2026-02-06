@@ -258,8 +258,8 @@ TEMP_PATH = "/content/temp"
 
 | Composant | Status | Progression |
 |-----------|--------|-------------|
-| Hexagramme documentaire | 🔄 En cours | 80% |
-| F01-SCANNER | ⬜ À faire | 0% |
+| Hexagramme documentaire | ✅ Complet | 100% |
+| F01-SCANNER | ✅ Complet | 100% |
 | F02-CORTEX | ⬜ À faire | 0% |
 | F03-SCÉNOGRAPHE | ⬜ À faire | 0% |
 | F04-PROJECTIONNISTE | ⬜ À faire | 0% |
@@ -273,11 +273,24 @@ TEMP_PATH = "/content/temp"
 ### 4.2 Détail par Frégate
 
 #### F01-SCANNER
-- [ ] Frame extraction (FFmpeg)
-- [ ] Depth Anything V2 integration
+- [x] Frame extraction (FFmpeg) ✅ 2026-02-06
+- [x] Depth Anything V2 integration ✅ 2026-02-06
 - [ ] YOLOv8 object detection
 - [ ] SAM segmentation
-- [ ] spatial_data.json export
+- [x] spatial_data.json export ✅ 2026-02-06
+
+**Tâches F01 complétées:**
+| ID | Tâche | Status | Date |
+|----|-------|--------|------|
+| F01-001 | Script extraction frames FFmpeg | ✅ | 2026-02-06 |
+| F01-002 | Paramétrer fps extraction | ✅ | 2026-02-06 |
+| F01-003 | Gérer formats vidéo multiples | ✅ | 2026-02-06 |
+| F01-004 | Intégration Depth Anything V2 | ✅ | 2026-02-06 |
+| F01-005 | Download modèle ViT-Large | ✅ | 2026-02-06 |
+| F01-006 | Inference depth single frame | ✅ | 2026-02-06 |
+| F01-007 | Batch inference depth | ✅ | 2026-02-06 |
+| F01-008 | Export PNG 16-bit | ✅ | 2026-02-06 |
+| F01-009 | Optimisation VRAM depth | ✅ | 2026-02-06 |
 
 #### F02-CORTEX
 - [ ] Gemini API integration
@@ -372,4 +385,4 @@ TEMP_PATH = "/content/temp"
 ---
 
 *Dernière mise à jour: 2026-02-06*
-*Version: 0.1.0-alpha*
+*Version: 0.2.0-alpha (F01-SCANNER)*
