@@ -14,6 +14,16 @@ PROTOCOLE GITHUB-FORGE:
 # ============================================================================
 
 DRIVE_ROOT = "/content/drive/MyDrive/EXODUS-SPECULUM"
+ROOT_DRIVE = DRIVE_ROOT
+
+# ============================================================================
+# SHARED RESOURCES
+# ============================================================================
+
+SHARED_RESOURCES = f"{DRIVE_ROOT}/SHARED_RESOURCES/"
+AI_MODELS_DIR = f"{SHARED_RESOURCES}AI_MODELS/"
+DEPTH_MODEL_BASE_PATH = f"{AI_MODELS_DIR}depth_anything_v2/"
+DEPTH_MODEL_PATH = f"{DEPTH_MODEL_BASE_PATH}depth_anything_v2_vitl.pth"
 
 # ============================================================================
 # CONFIGURATION FRÉGATES
@@ -41,19 +51,40 @@ FRIGATES = {
         "INPUT": f"{DRIVE_ROOT}/FRIGATE_02_ARCHITECT/INPUT/",
         "OUTPUT": f"{DRIVE_ROOT}/FRIGATE_02_ARCHITECT/OUTPUT/",
     },
-    "F03_RENDERER": {
+    "F03_SCENOGRAPHE": {
+        "NAME": "Frégate SCÉNOGRAPHE",
+        "DESCRIPTION": "Génération géométrie 3D (blob room + proxies)",
+        "CODEBASE": f"{DRIVE_ROOT}/FRIGATE_03_SCENOGRAPHE/",
+        "INPUT": f"{DRIVE_ROOT}/FRIGATE_03_SCENOGRAPHE/INPUT/",
+        "OUTPUT": f"{DRIVE_ROOT}/FRIGATE_03_SCENOGRAPHE/OUTPUT/",
+    },
+    "F04_RENDERER": {
         "NAME": "Frégate RENDERER",
         "DESCRIPTION": "Rendu Cycles + Post-processing",
-        "CODEBASE": f"{DRIVE_ROOT}/FRIGATE_03_RENDERER/",
-        "INPUT": f"{DRIVE_ROOT}/FRIGATE_03_RENDERER/INPUT/",
-        "OUTPUT": f"{DRIVE_ROOT}/FRIGATE_03_RENDERER/OUTPUT/",
+        "CODEBASE": f"{DRIVE_ROOT}/FRIGATE_04_RENDERER/",
+        "INPUT": f"{DRIVE_ROOT}/FRIGATE_04_RENDERER/INPUT/",
+        "OUTPUT": f"{DRIVE_ROOT}/FRIGATE_04_RENDERER/OUTPUT/",
     },
-    "F04_COMPOSITOR": {
+    "F05_COMPOSITOR": {
         "NAME": "Frégate COMPOSITOR",
         "DESCRIPTION": "Upscaling + Interpolation + Export final",
-        "CODEBASE": f"{DRIVE_ROOT}/FRIGATE_04_COMPOSITOR/",
-        "INPUT": f"{DRIVE_ROOT}/FRIGATE_04_COMPOSITOR/INPUT/",
-        "OUTPUT": f"{DRIVE_ROOT}/FRIGATE_04_COMPOSITOR/OUTPUT/",
+        "CODEBASE": f"{DRIVE_ROOT}/FRIGATE_05_COMPOSITOR/",
+        "INPUT": f"{DRIVE_ROOT}/FRIGATE_05_COMPOSITOR/INPUT/",
+        "OUTPUT": f"{DRIVE_ROOT}/FRIGATE_05_COMPOSITOR/OUTPUT/",
+    },
+    "F06_DIRECTOR": {
+        "NAME": "Frégate DIRECTEUR PHOTO",
+        "DESCRIPTION": "Camera animation + Smart-Crop",
+        "CODEBASE": f"{DRIVE_ROOT}/FRIGATE_06_DIRECTOR/",
+        "INPUT": f"{DRIVE_ROOT}/FRIGATE_06_DIRECTOR/INPUT/",
+        "OUTPUT": f"{DRIVE_ROOT}/FRIGATE_06_DIRECTOR/OUTPUT/",
+    },
+    "F07_ALCHIMISTE": {
+        "NAME": "Frégate ALCHIMISTE",
+        "DESCRIPTION": "Rendu final + Export vidéo",
+        "CODEBASE": f"{DRIVE_ROOT}/FRIGATE_07_ALCHIMISTE/",
+        "INPUT": f"{DRIVE_ROOT}/FRIGATE_07_ALCHIMISTE/INPUT/",
+        "OUTPUT": f"{DRIVE_ROOT}/FRIGATE_07_ALCHIMISTE/OUTPUT/",
     },
 }
 
@@ -82,31 +113,80 @@ F02_INPUT = FRIGATES["F02_ARCHITECT"]["INPUT"]
 F02_OUTPUT = FRIGATES["F02_ARCHITECT"]["OUTPUT"]
 
 # ============================================================================
-# RACCOURCIS F03_RENDERER
+# RACCOURCIS F03_SCENOGRAPHE
 # ============================================================================
 
-F03_CODEBASE = FRIGATES["F03_RENDERER"]["CODEBASE"]
-F03_INPUT = FRIGATES["F03_RENDERER"]["INPUT"]
-F03_OUTPUT = FRIGATES["F03_RENDERER"]["OUTPUT"]
+F03_CODEBASE = FRIGATES["F03_SCENOGRAPHE"]["CODEBASE"]
+F03_INPUT = FRIGATES["F03_SCENOGRAPHE"]["INPUT"]
+F03_OUTPUT = FRIGATES["F03_SCENOGRAPHE"]["OUTPUT"]
 
 # ============================================================================
-# RACCOURCIS F04_COMPOSITOR
+# RACCOURCIS F04_RENDERER
 # ============================================================================
 
-F04_CODEBASE = FRIGATES["F04_COMPOSITOR"]["CODEBASE"]
-F04_INPUT = FRIGATES["F04_COMPOSITOR"]["INPUT"]
-F04_OUTPUT = FRIGATES["F04_COMPOSITOR"]["OUTPUT"]
+F04_CODEBASE = FRIGATES["F04_RENDERER"]["CODEBASE"]
+F04_INPUT = FRIGATES["F04_RENDERER"]["INPUT"]
+F04_OUTPUT = FRIGATES["F04_RENDERER"]["OUTPUT"]
+
+# ============================================================================
+# RACCOURCIS F05_COMPOSITOR
+# ============================================================================
+
+F05_CODEBASE = FRIGATES["F05_COMPOSITOR"]["CODEBASE"]
+F05_INPUT = FRIGATES["F05_COMPOSITOR"]["INPUT"]
+F05_OUTPUT = FRIGATES["F05_COMPOSITOR"]["OUTPUT"]
+
+# ============================================================================
+# RACCOURCIS F06_DIRECTOR
+# ============================================================================
+
+F06_CODEBASE = FRIGATES["F06_DIRECTOR"]["CODEBASE"]
+F06_INPUT = FRIGATES["F06_DIRECTOR"]["INPUT"]
+F06_OUTPUT = FRIGATES["F06_DIRECTOR"]["OUTPUT"]
+
+# ============================================================================
+# RACCOURCIS F07_ALCHIMISTE
+# ============================================================================
+
+F07_CODEBASE = FRIGATES["F07_ALCHIMISTE"]["CODEBASE"]
+F07_INPUT = FRIGATES["F07_ALCHIMISTE"]["INPUT"]
+F07_OUTPUT = FRIGATES["F07_ALCHIMISTE"]["OUTPUT"]
 
 # ============================================================================
 # EXPORTS
 # ============================================================================
 
+# ============================================================================
+# PATHCONFIG - Classe unifiée pour accès aux chemins
+# ============================================================================
+
+class PathConfig:
+    """Classe de configuration des chemins pour accès unifié."""
+    DRIVE_ROOT = DRIVE_ROOT
+    
+    MASTERPLAN_PATH = f"{F00_OUTPUT}masterplan.json"
+    DEPTH_OUTPUT = f"{F01_OUTPUT}depth_maps/"
+    FRAMES_OUTPUT = f"{F01_OUTPUT}frames/"
+    
+    SCENOGRAPHE_OUTPUT = F03_OUTPUT
+    SCENE_SHELL_PATH = f"{F03_OUTPUT}scene_shell.blend"
+
+
 __all__ = [
     'DRIVE_ROOT',
+    'ROOT_DRIVE',
+    'SHARED_RESOURCES',
+    'AI_MODELS_DIR',
+    'DEPTH_MODEL_BASE_PATH',
+    'DEPTH_MODEL_PATH',
     'FRIGATES',
     'F00_CODEBASE', 'F00_INPUT', 'F00_OUTPUT',
     'F01_CODEBASE', 'F01_INPUT', 'F01_OUTPUT',
     'F02_CODEBASE', 'F02_INPUT', 'F02_OUTPUT',
     'F03_CODEBASE', 'F03_INPUT', 'F03_OUTPUT',
     'F04_CODEBASE', 'F04_INPUT', 'F04_OUTPUT',
+    'F05_CODEBASE', 'F05_INPUT', 'F05_OUTPUT',
+    'F06_CODEBASE', 'F06_INPUT', 'F06_OUTPUT',
+    'F07_CODEBASE', 'F07_INPUT', 'F07_OUTPUT',
+    'PathConfig',
 ]

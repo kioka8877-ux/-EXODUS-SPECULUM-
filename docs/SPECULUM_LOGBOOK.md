@@ -95,19 +95,19 @@
 
 | ID | Tâche | Status | Assigné | Date Début | Date Fin | Notes |
 |----|-------|--------|---------|------------|----------|-------|
-| F03-001 | Script Blender baseline | [ ] | - | - | - | bpy.ops basic |
-| F03-002 | Créer plane subdivisé | [ ] | - | - | - | 512x512 faces |
-| F03-003 | Appliquer displacement modifier | [ ] | - | - | - | Depth texture |
+| F03-001 | Script Blender baseline | [x] | Capy | 2026-02-06 | 2026-02-06 | bpy.ops basic |
+| F03-002 | Créer plane subdivisé | [x] | Capy | 2026-02-06 | 2026-02-06 | 512x512 faces |
+| F03-003 | Appliquer displacement modifier | [x] | Capy | 2026-02-06 | 2026-02-06 | Depth texture |
 | F03-004 | Calibrer displacement strength | [ ] | - | - | - | Tests visuels |
-| F03-005 | Créer 6 surfaces (box room) | [ ] | - | - | - | Floor, walls, ceiling |
-| F03-006 | Orienter surfaces correctement | [ ] | - | - | - | Normals vers intérieur |
-| F03-007 | Système proxy cubes | [ ] | - | - | - | Furniture boxes |
-| F03-008 | Système proxy cylindres | [ ] | - | - | - | Lamps, vases |
-| F03-009 | Positionner proxies via masterplan | [ ] | - | - | - | Coordinates mapping |
-| F03-010 | Tagger proxies ghost_proxy | [ ] | - | - | - | Custom property |
-| F03-011 | Exporter scene_shell.blend | [ ] | - | - | - | Save file |
-| F03-012 | Organiser collections | [ ] | - | - | - | ROOM_SHELL, PROXIES |
-| F03-013 | Embed metadata dans .blend | [ ] | - | - | - | masterplan reference |
+| F03-005 | Créer 6 surfaces (box room) | [x] | Capy | 2026-02-06 | 2026-02-06 | Floor, walls, ceiling |
+| F03-006 | Orienter surfaces correctement | [x] | Capy | 2026-02-06 | 2026-02-06 | Normals vers intérieur |
+| F03-007 | Système proxy cubes | [x] | Capy | 2026-02-06 | 2026-02-06 | Furniture boxes |
+| F03-008 | Système proxy cylindres | [x] | Capy | 2026-02-06 | 2026-02-06 | Lamps, vases |
+| F03-009 | Positionner proxies via masterplan | [x] | Capy | 2026-02-06 | 2026-02-06 | Coordinates mapping |
+| F03-010 | Tagger proxies ghost_proxy | [x] | Capy | 2026-02-06 | 2026-02-06 | Custom property |
+| F03-011 | Exporter scene_shell.blend | [x] | Capy | 2026-02-06 | 2026-02-06 | Save file |
+| F03-012 | Organiser collections | [x] | Capy | 2026-02-06 | 2026-02-06 | ROOM_SHELL, PROXIES |
+| F03-013 | Embed metadata dans .blend | [x] | Capy | 2026-02-06 | 2026-02-06 | masterplan reference |
 | F03-014 | Tests unitaires F03 | [ ] | - | - | - | Geometry validation |
 | F03-015 | Documentation F03 | [ ] | - | - | - | Blender scripting |
 
@@ -254,19 +254,19 @@
 | P0 | 16 | 13 | 1 | 2 | 0 |
 | F01 | 22 | 22 | 0 | 0 | 0 |
 | F02 | 17 | 17 | 0 | 0 | 0 |
-| F03 | 15 | 15 | 0 | 0 | 0 |
+| F03 | 15 | 3 | 0 | 12 | 0 |
 | F04 | 17 | 17 | 0 | 0 | 0 |
 | F05 | 15 | 15 | 0 | 0 | 0 |
 | F06 | 16 | 16 | 0 | 0 | 0 |
 | F07 | 18 | 18 | 0 | 0 | 0 |
 | F08 | 20 | 20 | 0 | 0 | 0 |
 | P3 | 8 | 8 | 0 | 0 | 0 |
-| **TOTAL** | **164** | **161** | **1** | **2** | **0** |
+| **TOTAL** | **164** | **149** | **1** | **14** | **0** |
 
 ### Progression Globale
 
 ```
-[██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 2%
+[█████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 9%
 ```
 
 ---
@@ -276,6 +276,7 @@
 | Date | Auteur | Changements |
 |------|--------|-------------|
 | 2026-02-06 | Vulkan | Création initiale, structure complète |
+| 2026-02-06 | Capy | F03-SCÉNOGRAPHE implémenté (12 tâches) |
 
 ---
 

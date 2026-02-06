@@ -261,7 +261,7 @@ TEMP_PATH = "/content/temp"
 | Hexagramme documentaire | ✅ Complet | 100% |
 | F01-SCANNER | ✅ Complet | 100% |
 | F02-CORTEX | ⬜ À faire | 0% |
-| F03-SCÉNOGRAPHE | ⬜ À faire | 0% |
+| F03-SCÉNOGRAPHE | 🟡 En cours | 80% |
 | F04-PROJECTIONNISTE | ⬜ À faire | 0% |
 | F05-LOGISTIQUE | ⬜ À faire | 0% |
 | F06-DIRECTEUR_PHOTO | ⬜ À faire | 0% |
@@ -299,10 +299,13 @@ TEMP_PATH = "/content/temp"
 - [ ] POI heatmap generation
 
 #### F03-SCÉNOGRAPHE
-- [ ] Blender headless setup
-- [ ] Blob geometry generation
-- [ ] Displacement modifier setup
-- [ ] Proxy cube/cylinder creation
+- [x] Blender headless setup
+- [x] Blob geometry generation (6 surfaces)
+- [x] Displacement modifier setup
+- [x] Proxy cube/cylinder creation
+- [x] Ghost proxy tagging
+- [x] Collections organization
+- [ ] Visual calibration tests
 
 #### F04-PROJECTIONNISTE
 - [ ] UV Project from View
@@ -385,4 +388,4 @@ TEMP_PATH = "/content/temp"
 ---
 
 *Dernière mise à jour: 2026-02-06*
-*Version: 0.2.0-alpha (F01-SCANNER)*
+*Version: 0.3.0-alpha (F03-SCÉNOGRAPHE)*

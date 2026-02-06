@@ -30,6 +30,61 @@
 
 ---
 
+### [2026-02-06] - F03-A: Frégate SCÉNOGRAPHE - Génération Géométrie 3D
+
+**Contexte:**
+Phase 1 Sprint F03-A - Implémentation de la Frégate SCÉNOGRAPHE pour la génération de géométrie 3D via Blender Python (BPY). Création de la coquille architecturale "blob room" avec proxies Ghost.
+
+**Solution:**
+- `room_builder.py`: Génération des 6 surfaces (box room) avec subdivision et displacement
+- `proxy_generator.py`: Création de proxies Ghost (cubes/cylindres) avec custom properties
+- `opening_cutter.py`: Percement des ouvertures via Boolean Modifiers
+- `scenographe_pipeline.py`: Orchestration complète du pipeline F03
+
+**Code critique:**
+```python
+# Création surface avec displacement
+def _create_surface(self, name, size, location, rotation):
+    bpy.ops.mesh.primitive_plane_add(size=1, location=location)
+    plane = bpy.context.active_object
+    plane.name = f"{name}_Displaced"
+    plane.scale = (size[0], size[1], 1)
+    plane.rotation_euler = rotation
+    bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
+    
+    subsurf = plane.modifiers.new(name="Subdivision", type='SUBSURF')
+    subsurf.levels = 0
+    subsurf.render_levels = 6  # 512x512 faces
+    subsurf.subdivision_type = 'SIMPLE'
+    return plane
+
+# Proxy avec ghost_proxy tag
+obj["ghost_proxy"] = True
+obj["proxy_type"] = furniture_type
+obj["confidence"] = confidence_score
+```
+
+**Architecture implémentée:**
+- `RoomBuilder`: 6 surfaces (Floor, Ceiling, 4 Walls) avec displacement modifier
+- `ProxyGenerator`: Mapping type→primitive (25+ types supportés), matériau semi-transparent
+- `OpeningCutter`: Boolean Difference pour fenêtres/portes/arches
+- Collections organisées: `ROOM_SHELL` et `PROXIES`
+- Métadonnées intégrées: `exodus_version`, `project_id`, `masterplan_source`
+
+**Résultats:**
+- 6 surfaces générées avec orientation correcte (normals vers intérieur)
+- Proxies avec custom properties `ghost_proxy=True` pour F05-LOGISTIQUE
+- Export `scene_shell.blend` avec collections organisées
+- Compatible Blender 4.0+ headless (Colab)
+
+**Leçon apprise:**
+L'utilisation de `subdivision.render_levels` au lieu de `subdivision.levels` permet de garder le viewport léger tout en ayant un rendu haute résolution pour le displacement.
+
+**Liens:**
+- Commit: `🎭 F03-A: Frégate SCÉNOGRAPHE - Génération géométrie 3D`
+
+---
+
 ### [2026-02-06] - F01-A: Frégate SCANNER - Extraction & Depth
 
 **Contexte:** 
@@ -132,7 +187,7 @@ pass
 - *(à venir)*
 
 ### Blender Scripting
-- *(à venir)*
+- [2026-02-06] F03-A: Frégate SCÉNOGRAPHE - Génération géométrie 3D
 
 ### Upscaling IA
 - *(à venir)*
@@ -212,4 +267,4 @@ ffmpeg -y -i input.mp4 -vf fps=2.0 -pix_fmt rgb24 frame_%04d.png
 ---
 
 *Dernière mise à jour: 2026-02-06*
-*Entrées: 2*
+*Entrées: 3*
