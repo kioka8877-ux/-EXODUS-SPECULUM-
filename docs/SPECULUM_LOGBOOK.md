@@ -115,20 +115,20 @@
 
 | ID | Tâche | Status | Assigné | Date Début | Date Fin | Notes |
 |----|-------|--------|---------|------------|----------|-------|
-| F04-001 | Créer camera Blender | [ ] | - | - | - | bpy.ops.object |
-| F04-002 | Positionner camera estimée | [ ] | - | - | - | From video metadata |
-| F04-003 | UV Project from View single | [ ] | - | - | - | Un keyframe |
-| F04-004 | UV Project multi-keyframes | [ ] | - | - | - | 3 UV maps |
-| F04-005 | Créer texture nodes | [ ] | - | - | - | ShaderNodeTexImage |
-| F04-006 | Lier UV maps aux textures | [ ] | - | - | - | ShaderNodeUVMap |
-| F04-007 | Créer mix shader nodes | [ ] | - | - | - | Blending 3 projections |
-| F04-008 | Implémenter weight drivers | [ ] | - | - | - | camera_progress var |
-| F04-009 | Driver weight_frame0 | [ ] | - | - | - | max(0, 1-p*2) |
-| F04-010 | Driver weight_frame50 | [ ] | - | - | - | 1-abs(p-0.5)*2 |
-| F04-011 | Driver weight_frame100 | [ ] | - | - | - | max(0, p*2-1) |
-| F04-012 | Edge feathering shader | [ ] | - | - | - | Gradient falloff |
-| F04-013 | Appliquer material aux surfaces | [ ] | - | - | - | Assign to all |
-| F04-014 | Exporter scene_projected.blend | [ ] | - | - | - | Save file |
+| F04-001 | Créer camera Blender | [x] | Capy | 2026-02-06 | 2026-02-06 | CameraSetup class |
+| F04-002 | Positionner camera estimée | [x] | Capy | 2026-02-06 | 2026-02-06 | estimate_camera_path() |
+| F04-003 | UV Project from View single | [x] | Capy | 2026-02-06 | 2026-02-06 | project_from_camera() |
+| F04-004 | UV Project multi-keyframes | [x] | Capy | 2026-02-06 | 2026-02-06 | project_all_keyframes() |
+| F04-005 | Créer texture nodes | [x] | Capy | 2026-02-06 | 2026-02-06 | ShaderNodeTexImage |
+| F04-006 | Lier UV maps aux textures | [x] | Capy | 2026-02-06 | 2026-02-06 | ShaderNodeUVMap |
+| F04-007 | Créer mix shader nodes | [x] | Capy | 2026-02-06 | 2026-02-06 | setup_blending() |
+| F04-008 | Implémenter weight drivers | [x] | Capy | 2026-02-06 | 2026-02-06 | setup_drivers() |
+| F04-009 | Driver weight_frame0 | [x] | Capy | 2026-02-06 | 2026-02-06 | min(1, max(0, p*2)) |
+| F04-010 | Driver weight_frame50 | [x] | Capy | 2026-02-06 | 2026-02-06 | implicit via mix chain |
+| F04-011 | Driver weight_frame100 | [x] | Capy | 2026-02-06 | 2026-02-06 | max(0, min(1, p*2-1)) |
+| F04-012 | Edge feathering shader | [x] | Capy | 2026-02-06 | 2026-02-06 | add_edge_feathering() |
+| F04-013 | Appliquer material aux surfaces | [x] | Capy | 2026-02-06 | 2026-02-06 | apply_to_objects() |
+| F04-014 | Exporter scene_projected.blend | [x] | Capy | 2026-02-06 | 2026-02-06 | Pipeline stage 10 |
 | F04-015 | Tests visuels projection | [ ] | - | - | - | Render preview |
 | F04-016 | Tests unitaires F04 | [ ] | - | - | - | UV validation |
 | F04-017 | Documentation F04 | [ ] | - | - | - | Projection math |
@@ -255,18 +255,18 @@
 | F01 | 22 | 22 | 0 | 0 | 0 |
 | F02 | 17 | 17 | 0 | 0 | 0 |
 | F03 | 15 | 3 | 0 | 12 | 0 |
-| F04 | 17 | 17 | 0 | 0 | 0 |
+| F04 | 17 | 3 | 0 | 14 | 0 |
 | F05 | 15 | 15 | 0 | 0 | 0 |
 | F06 | 16 | 16 | 0 | 0 | 0 |
 | F07 | 18 | 18 | 0 | 0 | 0 |
 | F08 | 20 | 20 | 0 | 0 | 0 |
 | P3 | 8 | 8 | 0 | 0 | 0 |
-| **TOTAL** | **164** | **149** | **1** | **14** | **0** |
+| **TOTAL** | **164** | **135** | **1** | **28** | **0** |
 
 ### Progression Globale
 
 ```
-[█████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 9%
+[█████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 17%
 ```
 
 ---
@@ -277,6 +277,7 @@
 |------|--------|-------------|
 | 2026-02-06 | Vulkan | Création initiale, structure complète |
 | 2026-02-06 | Capy | F03-SCÉNOGRAPHE implémenté (12 tâches) |
+| 2026-02-06 | Capy | F04-PROJECTIONNISTE implémenté (14 tâches) |
 
 ---
 
