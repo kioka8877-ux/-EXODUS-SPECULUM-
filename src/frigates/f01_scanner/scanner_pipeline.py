@@ -11,6 +11,12 @@ from pathlib import Path
 from typing import Dict, Any, Optional
 from datetime import datetime
 
+try:
+    from config.paths import F01_INPUT, F01_OUTPUT
+except ImportError:
+    F01_INPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_01_SCANNER/INPUT/"
+    F01_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_01_SCANNER/OUTPUT/"
+
 from .frame_extractor import FrameExtractor
 from .depth_estimator import DepthEstimator
 
@@ -27,12 +33,15 @@ class ScannerPipeline:
     
     def __init__(self, 
                  project_id: str,
-                 output_base: str = "/content/drive/MyDrive/EXODUS-SPECULUM/01_SCANNER_OUT"):
+                 output_base: str = None):
         """
         Args:
             project_id: Identifiant unique du projet
-            output_base: Dossier racine de sortie
+            output_base: Dossier racine de sortie (défaut: F01_OUTPUT)
         """
+        if output_base is None:
+            output_base = F01_OUTPUT
+        
         self.project_id = project_id
         self.output_dir = Path(output_base) / project_id
         self.output_dir.mkdir(parents=True, exist_ok=True)
@@ -163,7 +172,7 @@ def run_scanner(video_path: str,
         Résultats du pipeline
     """
     if output_base is None:
-        output_base = "/content/drive/MyDrive/EXODUS-SPECULUM/01_SCANNER_OUT"
+        output_base = F01_OUTPUT
     
     pipeline = ScannerPipeline(project_id, output_base)
     return pipeline.run(video_path, fps=fps)

@@ -19,6 +19,13 @@ import numpy as np
 from PIL import Image
 import cv2
 
+try:
+    from config.paths import AI_MODELS_DIR, DEPTH_MODEL_PATH, DEPTH_MODEL_BASE_PATH
+except ImportError:
+    AI_MODELS_DIR = "/content/drive/MyDrive/EXODUS_SHARED_RESOURCES/AI_MODELS/"
+    DEPTH_MODEL_PATH = AI_MODELS_DIR + "depth_anything_v2/depth_anything_v2_vitl.pth"
+    DEPTH_MODEL_BASE_PATH = AI_MODELS_DIR + "depth_anything_v2/depth_anything_v2_vitb.pth"
+
 
 class DepthEstimator:
     """
@@ -28,8 +35,8 @@ class DepthEstimator:
     """
     
     MODEL_PATHS = {
-        'vit-large': '/content/drive/MyDrive/EXODUS_SHARED_RESOURCES/AI_MODELS/depth_anything_v2/depth_anything_v2_vitl.pth',
-        'vit-base': '/content/drive/MyDrive/EXODUS_SHARED_RESOURCES/AI_MODELS/depth_anything_v2/depth_anything_v2_vitb.pth',
+        'vit-large': DEPTH_MODEL_PATH,
+        'vit-base': DEPTH_MODEL_BASE_PATH,
     }
     
     MODEL_CONFIG = {
