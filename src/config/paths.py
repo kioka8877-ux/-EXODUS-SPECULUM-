@@ -81,7 +81,7 @@ FRIGATES = {
     },
     "F07_ALCHIMISTE": {
         "NAME": "Frégate ALCHIMISTE",
-        "DESCRIPTION": "Rendu final + Export vidéo",
+        "DESCRIPTION": "Rendu Cycles + Upscaling IA (ESRGAN/RIFE)",
         "CODEBASE": f"{DRIVE_ROOT}/FRIGATE_07_ALCHIMISTE/",
         "INPUT": f"{DRIVE_ROOT}/FRIGATE_07_ALCHIMISTE/INPUT/",
         "OUTPUT": f"{DRIVE_ROOT}/FRIGATE_07_ALCHIMISTE/OUTPUT/",
@@ -186,6 +186,9 @@ class PathConfig:
     
     DIRECTEUR_PHOTO_OUTPUT = F06_OUTPUT
     SCENE_ANIMATED_PATH = f"{F06_OUTPUT}scene_animated.blend"
+    
+    ALCHIMISTE_OUTPUT = F07_OUTPUT
+    TEMP_RENDER_PATH = f"{F07_OUTPUT}temp_render.mp4"
 
 
 __all__ = [
