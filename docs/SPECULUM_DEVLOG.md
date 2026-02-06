@@ -30,6 +30,49 @@
 
 ---
 
+### [2026-02-06] - P0-A: Template Colab + Blender Headless
+
+**Contexte:** 
+Sprint P0-A - Création du template Colab de base et validation du setup Blender headless. Cette fondation est critique: si `bpy` ne s'importe pas, rien ne fonctionne.
+
+**Solution:** 
+1. Création de `notebooks/SPECULUM_COLAB_TEMPLATE.ipynb` avec 6 cellules structurées
+2. Création de `scripts/install_dependencies.py` pour installation modulaire
+3. Installation bpy via pip + dépendances système (libxi6, libgl1, etc.)
+
+**Code critique:**
+```python
+# Installation Blender headless sur Colab
+!apt-get install -qq -y libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1
+!pip install -q bpy==4.0.0
+
+# Vérification
+import bpy
+print(f"Blender: {bpy.app.version_string}")
+
+# Configuration GPU Cycles
+prefs = bpy.context.preferences.addons['cycles'].preferences
+prefs.compute_device_type = 'CUDA'
+prefs.get_devices()
+for device in prefs.devices:
+    device.use = True
+```
+
+**Résultats:** 
+- ✅ bpy 4.0.0 importé avec succès
+- ✅ Rendu test 256x256 Cycles GPU fonctionnel
+- ✅ Structure Sanctum Drive créée automatiquement
+- ✅ Rapport système complet avec validation checks
+
+**Leçon apprise:** 
+bpy sur Colab nécessite des dépendances système (libxi6, libgl1) pour fonctionner correctement. Toujours installer ces packages AVANT pip install bpy.
+
+**Liens:**
+- Commit: `🚀 P0-A: Template Colab + Blender headless validé`
+- Fichiers: `notebooks/SPECULUM_COLAB_TEMPLATE.ipynb`, `scripts/install_dependencies.py`
+
+---
+
 ### [2026-02-06] - Initialisation du projet EXODUS-SPECULUM
 
 **Contexte:** 
@@ -95,7 +138,7 @@ pass
 - *(à venir)*
 
 ### Blender Scripting
-- *(à venir)*
+- [2026-02-06] P0-A: Template Colab + Blender Headless
 
 ### Upscaling IA
 - *(à venir)*
@@ -165,4 +208,4 @@ pass
 ---
 
 *Dernière mise à jour: 2026-02-06*
-*Entrées: 1*
+*Entrées: 2*

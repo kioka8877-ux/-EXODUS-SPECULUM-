@@ -254,11 +254,32 @@ TEMP_PATH = "/content/temp"
 
 ## 4. État Actuel du Développement
 
+### Phase 0: Fondations
+| ID | Tâche | Status | Date |
+|----|-------|--------|------|
+| P0-004 | SPECULUM_STATE.md | ✅ | 2026-02-06 |
+| P0-005 | SPECULUM_PRD.md | ✅ | 2026-02-06 |
+| P0-006 | SPECULUM_ROADMAP.md | ✅ | 2026-02-06 |
+| P0-010 | Template Colab | ✅ | 2026-02-06 |
+| P0-011 | Script installation | ✅ | 2026-02-06 |
+| P0-012 | Setup Blender headless | ✅ | 2026-02-06 |
+| P0-013 | Test import bpy | ✅ | 2026-02-06 |
+
+### Environnement Validé
+- ✅ Google Colab T4 GPU
+- ✅ PyTorch + CUDA 11.8
+- ✅ Blender 4.0 headless (bpy)
+- ✅ Rendu Cycles GPU fonctionnel
+- ✅ Structure Sanctum Google Drive
+
+---
+
 ### 4.1 Checklist Globale
 
 | Composant | Status | Progression |
 |-----------|--------|-------------|
-| Hexagramme documentaire | 🔄 En cours | 80% |
+| Hexagramme documentaire | ✅ Complet | 100% |
+| Template Colab P0 | ✅ Complet | 100% |
 | F01-SCANNER | ⬜ À faire | 0% |
 | F02-CORTEX | ⬜ À faire | 0% |
 | F03-SCÉNOGRAPHE | ⬜ À faire | 0% |
@@ -372,4 +393,4 @@ TEMP_PATH = "/content/temp"
 ---
 
 *Dernière mise à jour: 2026-02-06*
-*Version: 0.1.0-alpha*
+*Version: 0.2.0-alpha (P0-A validé)*
