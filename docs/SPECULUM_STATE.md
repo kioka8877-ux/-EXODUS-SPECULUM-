@@ -280,6 +280,7 @@ TEMP_PATH = "/content/temp"
 |-----------|--------|-------------|
 | Hexagramme documentaire | ✅ Complet | 100% |
 | Template Colab P0 | ✅ Complet | 100% |
+| P0-B Ressources Partagées | ✅ Complet | 100% |
 | F01-SCANNER | ⬜ À faire | 0% |
 | F02-CORTEX | ⬜ À faire | 0% |
 | F03-SCÉNOGRAPHE | ⬜ À faire | 0% |
@@ -290,6 +291,22 @@ TEMP_PATH = "/content/temp"
 | F08-PORTE_AVIONS | ⬜ À faire | 0% |
 | Tests unitaires | ⬜ À faire | 0% |
 | Tests intégration | ⬜ À faire | 0% |
+
+### 4.3 Sprint P0-B: Ancrage Ressources Partagées
+
+| Tâche | Description | Status | Date |
+|-------|-------------|--------|------|
+| P0-014 | Test Gemini API / Depth Model | ✅ | 2026-02-06 |
+| P0-015 | Structure ASSETS_HUB + Library Linking | ✅ | 2026-02-06 |
+
+### 4.4 Ressources Partagées Validées
+
+- ✅ Structure EXODUS_SHARED_RESOURCES créée
+- ✅ Chemin AI_MODELS accessible
+- ✅ Chemin ASSETS_HUB accessible  
+- ✅ Blender Library Linking fonctionnel
+- ✅ Custom properties préservées (Ghost Proxy)
+- ⏳ Latence chargement modèle: À mesurer sur Colab (cible < 30s)
 
 ### 4.2 Détail par Frégate
 
@@ -393,4 +410,4 @@ TEMP_PATH = "/content/temp"
 ---
 
 *Dernière mise à jour: 2026-02-06*
-*Version: 0.2.0-alpha (P0-A validé)*
+*Version: 0.2.0-alpha (P0-A + P0-B validés)*
