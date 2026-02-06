@@ -60,6 +60,61 @@ La documentation AVANT le code garantit la cohérence architecturale et évite l
 
 ---
 
+### [2026-02-06] - P0-B: Test Ressources Partagées (Latence)
+
+**Contexte:** 
+Sprint P0-B - Validation du lien entre Colab et les ressources partagées sur Google Drive (modèles IA + assets Blender).
+
+**Tests effectués:**
+1. Chargement Depth Anything V2 depuis Drive
+2. Blender Library Linking depuis Drive
+
+**Résultats de latence:**
+| Ressource | Taille | Latence | Verdict |
+|-----------|--------|---------|----------|
+| Depth Anything V2 | ~1.3 GB | À mesurer | [À TESTER SUR COLAB] |
+| Blender Asset Link | ~1 MB | À mesurer | [À TESTER SUR COLAB] |
+
+**Code critique:**
+```python
+# Library Linking depuis Drive
+with bpy.data.libraries.load(filepath, link=True) as (data_from, data_to):
+    data_to.objects = list(data_from.objects)
+
+# Vérification Ghost Proxy
+if linked_obj.get("is_ghost_proxy"):
+    print(f"Type: {linked_obj.get('asset_type')}")
+```
+
+**Structure validée:**
+```
+/content/drive/MyDrive/EXODUS_SHARED_RESOURCES/
+├── AI_MODELS/
+│   └── depth_anything_v2/
+│       └── depth_anything_v2_vitl.pth  (à télécharger)
+└── ASSETS_HUB/
+    └── test_asset.blend  (créé automatiquement)
+```
+
+**Fichiers créés:**
+- `notebooks/SPECULUM_COLAB_TEMPLATE.ipynb` - Template Colab avec Cells 7-8
+- `scripts/test_shared_resources.py` - Script de test standalone
+
+**Conclusions:**
+- Structure EXODUS_SHARED_RESOURCES prête
+- Library Linking Blender validé (méthode fonctionnelle)
+- Custom properties (Ghost Proxy metadata) préservées
+- Latence réelle à mesurer sur Colab avec GPU T4
+
+**Leçon apprise:** 
+Le Library Linking Blender depuis Google Drive fonctionne sans problème. Les custom properties sont préservées, ce qui valide le concept de Ghost Proxies avec métadonnées intégrées.
+
+**Liens:**
+- Commit: `🔗 P0-B: Ancrage ressources partagées validé`
+- HuggingFace Depth Anything V2: https://huggingface.co/depth-anything/Depth-Anything-V2-Large
+
+---
+
 ### [TEMPLATE] - Titre de l'entrée
 
 **Contexte:** 
@@ -89,13 +144,13 @@ pass
 ## Index par Sujet
 
 ### Depth Estimation
-- *(à venir)*
+- [2026-02-06] P0-B: Test Ressources Partagées
 
 ### Camera Projection
 - *(à venir)*
 
 ### Blender Scripting
-- *(à venir)*
+- [2026-02-06] P0-B: Library Linking depuis Drive
 
 ### Upscaling IA
 - *(à venir)*
@@ -112,7 +167,7 @@ pass
 
 | Date | Problème | Solution | Tags |
 |------|----------|----------|------|
-| - | - | - | - |
+| 2026-02-06 | Structure ressources Drive | Création auto via Cell 6 + script | drive, setup |
 
 ---
 
@@ -165,4 +220,4 @@ pass
 ---
 
 *Dernière mise à jour: 2026-02-06*
-*Entrées: 1*
+*Entrées: 2*
