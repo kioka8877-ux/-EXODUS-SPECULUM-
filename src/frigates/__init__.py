@@ -33,6 +33,11 @@ try:
 except ImportError:
     f06_directeur_photo = None
 
+try:
+    from . import f07_alchimiste
+except ImportError:
+    f07_alchimiste = None
+
 __all__ = [
     'f00_cortex',
     'f01_scanner',
@@ -40,4 +45,5 @@ __all__ = [
     'f04_projectionniste',
     'f05_logistique',
     'f06_directeur_photo',
+    'f07_alchimiste',
 ]
