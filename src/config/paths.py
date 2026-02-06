@@ -58,12 +58,12 @@ FRIGATES = {
         "INPUT": f"{DRIVE_ROOT}/FRIGATE_03_SCENOGRAPHE/INPUT/",
         "OUTPUT": f"{DRIVE_ROOT}/FRIGATE_03_SCENOGRAPHE/OUTPUT/",
     },
-    "F04_RENDERER": {
-        "NAME": "Frégate RENDERER",
-        "DESCRIPTION": "Rendu Cycles + Post-processing",
-        "CODEBASE": f"{DRIVE_ROOT}/FRIGATE_04_RENDERER/",
-        "INPUT": f"{DRIVE_ROOT}/FRIGATE_04_RENDERER/INPUT/",
-        "OUTPUT": f"{DRIVE_ROOT}/FRIGATE_04_RENDERER/OUTPUT/",
+    "F04_PROJECTIONNISTE": {
+        "NAME": "Frégate PROJECTIONNISTE",
+        "DESCRIPTION": "Camera Projection Mapping pour textures vidéo sur géométrie 3D",
+        "CODEBASE": f"{DRIVE_ROOT}/FRIGATE_04_PROJECTIONNISTE/",
+        "INPUT": f"{DRIVE_ROOT}/FRIGATE_04_PROJECTIONNISTE/INPUT/",
+        "OUTPUT": f"{DRIVE_ROOT}/FRIGATE_04_PROJECTIONNISTE/OUTPUT/",
     },
     "F05_COMPOSITOR": {
         "NAME": "Frégate COMPOSITOR",
@@ -121,12 +121,12 @@ F03_INPUT = FRIGATES["F03_SCENOGRAPHE"]["INPUT"]
 F03_OUTPUT = FRIGATES["F03_SCENOGRAPHE"]["OUTPUT"]
 
 # ============================================================================
-# RACCOURCIS F04_RENDERER
+# RACCOURCIS F04_PROJECTIONNISTE
 # ============================================================================
 
-F04_CODEBASE = FRIGATES["F04_RENDERER"]["CODEBASE"]
-F04_INPUT = FRIGATES["F04_RENDERER"]["INPUT"]
-F04_OUTPUT = FRIGATES["F04_RENDERER"]["OUTPUT"]
+F04_CODEBASE = FRIGATES["F04_PROJECTIONNISTE"]["CODEBASE"]
+F04_INPUT = FRIGATES["F04_PROJECTIONNISTE"]["INPUT"]
+F04_OUTPUT = FRIGATES["F04_PROJECTIONNISTE"]["OUTPUT"]
 
 # ============================================================================
 # RACCOURCIS F05_COMPOSITOR
@@ -170,6 +170,9 @@ class PathConfig:
     
     SCENOGRAPHE_OUTPUT = F03_OUTPUT
     SCENE_SHELL_PATH = f"{F03_OUTPUT}scene_shell.blend"
+    
+    PROJECTIONNISTE_OUTPUT = F04_OUTPUT
+    SCENE_PROJECTED_PATH = f"{F04_OUTPUT}scene_projected.blend"
 
 
 __all__ = [

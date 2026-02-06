@@ -30,6 +30,62 @@
 
 ---
 
+### [2026-02-06] - F04-A: Frégate PROJECTIONNISTE - Camera Projection Mapping
+
+**Contexte:**
+Phase 1 Sprint F04-A - Implémentation de la Frégate PROJECTIONNISTE pour le Camera Projection Mapping. Projection des textures vidéo source sur la coquille 3D générée par F03-SCÉNOGRAPHE.
+
+**Solution:**
+- `camera_setup.py`: Configuration des 3 caméras de projection avec estimation de chemin
+- `uv_projector.py`: Projection UV manuelle depuis la perspective caméra (headless compatible)
+- `multi_projection_shader.py`: Matériau avec blending animé via drivers
+- `projectionniste_pipeline.py`: Orchestration complète du pipeline F04
+
+**Code critique:**
+```python
+# Projection UV depuis caméra (sans opérateur Blender)
+def _project_uvs_from_camera_view(self, obj, camera, uv_name):
+    cam_matrix = camera.matrix_world.inverted()
+    for face in bm.faces:
+        for loop in face.loops:
+            world_co = obj.matrix_world @ loop.vert.co
+            cam_co = cam_matrix @ world_co
+            if cam_co.z >= 0:
+                u, v = 0.5, 0.5  # Behind camera
+            else:
+                x_proj = cam_co.x / (-cam_co.z)
+                y_proj = cam_co.y / (-cam_co.z)
+                u = (x_proj / (fov_scale * aspect) + 1) / 2
+                v = (y_proj / fov_scale + 1) / 2
+            loop[uv_layer].uv = (u, v)
+
+# Driver blending formulas
+driver1.expression = "min(1, max(0, progress * 2))"      # mix1: frame0↔frame50
+driver2.expression = "max(0, min(1, progress * 2 - 1))"  # mix2: result↔frame100
+```
+
+**Architecture implémentée:**
+- `CameraSetup`: 9 types de mouvement supportés (linear_forward/backward, pan_left/right, orbit_cw/ccw, static, zoom_in/out)
+- `UVProjector`: Projection manuelle compatible headless, 3 UV layers par surface
+- `MultiProjectionShader`: Node tree complet (UV Map → Texture → Mix → Principled BSDF)
+- Drivers sur `animation_progress` custom property (0.0 → 1.0)
+- Collection `PROJECTION_CAMERAS` pour organisation
+
+**Résultats:**
+- 3 caméras de projection positionnées selon type mouvement masterplan
+- 3 UV layers par surface (UV_Projection_0/1/2)
+- Matériau `MultiProjection_Material` avec blending fonctionnel
+- Métadonnées intégrées (exodus_version, keyframes_used, etc.)
+- Compatible Blender 4.0+ headless (Colab)
+
+**Leçon apprise:**
+L'opérateur `bpy.ops.uv.project_from_view()` nécessite un contexte graphique. Pour le mode headless, implémenter la projection manuelle via matrices camera et calculs de perspective.
+
+**Liens:**
+- Commit: `🎥 F04-A: Frégate PROJECTIONNISTE - Camera Projection Mapping`
+
+---
+
 ### [2026-02-06] - F03-A: Frégate SCÉNOGRAPHE - Génération Géométrie 3D
 
 **Contexte:**
@@ -184,10 +240,11 @@ pass
 - [2026-02-06] F01-A: Depth Anything V2 integration
 
 ### Camera Projection
-- *(à venir)*
+- [2026-02-06] F04-A: Frégate PROJECTIONNISTE - Camera Projection Mapping
 
 ### Blender Scripting
 - [2026-02-06] F03-A: Frégate SCÉNOGRAPHE - Génération géométrie 3D
+- [2026-02-06] F04-A: Frégate PROJECTIONNISTE - UV Projection & Shaders
 
 ### Upscaling IA
 - *(à venir)*
@@ -267,4 +324,4 @@ ffmpeg -y -i input.mp4 -vf fps=2.0 -pix_fmt rgb24 frame_%04d.png
 ---
 
 *Dernière mise à jour: 2026-02-06*
-*Entrées: 3*
+*Entrées: 4*

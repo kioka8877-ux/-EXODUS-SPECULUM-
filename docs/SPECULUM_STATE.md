@@ -262,7 +262,7 @@ TEMP_PATH = "/content/temp"
 | F01-SCANNER | ✅ Complet | 100% |
 | F02-CORTEX | ⬜ À faire | 0% |
 | F03-SCÉNOGRAPHE | 🟡 En cours | 80% |
-| F04-PROJECTIONNISTE | ⬜ À faire | 0% |
+| F04-PROJECTIONNISTE | ✅ Complet | 82% |
 | F05-LOGISTIQUE | ⬜ À faire | 0% |
 | F06-DIRECTEUR_PHOTO | ⬜ À faire | 0% |
 | F07-ALCHIMISTE | ⬜ À faire | 0% |
@@ -308,10 +308,12 @@ TEMP_PATH = "/content/temp"
 - [ ] Visual calibration tests
 
 #### F04-PROJECTIONNISTE
-- [ ] UV Project from View
-- [ ] Multi-projection shader
-- [ ] Blend drivers implementation
-- [ ] Edge feathering
+- [x] Camera Setup (9 movement types)
+- [x] UV Project from Camera (headless compatible)
+- [x] Multi-projection shader
+- [x] Blend drivers implementation
+- [x] Edge feathering
+- [ ] Visual calibration tests
 
 #### F05-LOGISTIQUE
 - [ ] Ghost Proxy system
@@ -388,4 +390,4 @@ TEMP_PATH = "/content/temp"
 ---
 
 *Dernière mise à jour: 2026-02-06*
-*Version: 0.3.0-alpha (F03-SCÉNOGRAPHE)*
+*Version: 0.4.0-alpha (F04-PROJECTIONNISTE)*
