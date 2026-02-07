@@ -30,54 +30,54 @@
 
 ---
 
-## 🏗️ Architecture
+## 🏗️ Architecture (V2-REBIRTH)
 
-Le pipeline est organisé en **8 Frégates** (modules spécialisés):
+Le pipeline est organisé en **8 Frégates** (modules spécialisés) avec structure autonome:
 
 ```
      Video Input
           │
           ▼
     ┌───────────┐     ┌───────────┐
-    │    F01    │     │    F02    │
-    │  SCANNER  │────►│  CORTEX   │
-    │  (Extract)│     │   (AI)    │
+    │    F00    │     │    F01    │
+    │  CORTEX   │◄────│  SCANNER  │
+    │   (AI)    │     │ (Extract) │
     └─────┬─────┘     └─────┬─────┘
           │                 │
           └────────┬────────┘
                    ▼
            ┌─────────────┐
-           │     F03     │
+           │     F02     │
            │ SCÉNOGRAPHE │
            │ (Geometry)  │
            └──────┬──────┘
                   ▼
            ┌─────────────┐
-           │     F04     │
+           │     F03     │
            │PROJECTIONNISTE│
            │  (Mapping)  │
            └──────┬──────┘
                   ▼
            ┌─────────────┐
-           │     F05     │
+           │     F04     │
            │ LOGISTIQUE  │
            │  (Assets)   │
            └──────┬──────┘
                   ▼
            ┌─────────────┐
-           │     F06     │
+           │     F05     │
            │DIRECTEUR PHOTO│
            │  (Camera)   │
            └──────┬──────┘
                   ▼
            ┌─────────────┐
-           │     F07     │
+           │     F06     │
            │ ALCHIMISTE  │
            │  (Render)   │
            └──────┬──────┘
                   ▼
            ┌─────────────┐
-           │     F08     │
+           │     F07     │
            │PORTE-AVIONS │
            │  (Output)   │
            └─────────────┘
@@ -88,14 +88,14 @@ Le pipeline est organisé en **8 Frégates** (modules spécialisés):
 
 | Frégate | Rôle | Technologies |
 |---------|------|--------------|
+| F00 CORTEX | Intelligence IA | Gemini 1.5 Pro |
 | F01 SCANNER | Extraction données spatiales | FFmpeg, Depth Anything V2, YOLOv8, SAM |
-| F02 CORTEX | Intelligence IA | Gemini 1.5 Pro |
-| F03 SCÉNOGRAPHE | Génération géométrie 3D | Blender bpy |
-| F04 PROJECTIONNISTE | Camera Projection Mapping | Blender UV Project |
-| F05 LOGISTIQUE | Asset replacement | Blender Linked Libraries |
-| F06 DIRECTEUR PHOTO | Animation caméra | Blender F-curves |
-| F07 ALCHIMISTE | Rendu + Upscaling | Cycles, Real-ESRGAN, RIFE |
-| F08 PORTE-AVIONS | Assemblage final | FFmpeg, Audio procedural |
+| F02 SCÉNOGRAPHE | Génération géométrie 3D | Blender bpy |
+| F03 PROJECTIONNISTE | Camera Projection Mapping | Blender UV Project |
+| F04 LOGISTIQUE | Asset replacement | Blender Linked Libraries |
+| F05 DIRECTEUR PHOTO | Animation caméra | Blender F-curves |
+| F06 ALCHIMISTE | Rendu + Upscaling | Cycles, Real-ESRGAN, RIFE |
+| F07 PORTE-AVIONS | Assemblage final | FFmpeg, Audio procedural |
 
 ---
 
@@ -163,10 +163,11 @@ cd -EXODUS-SPECULUM-
 
 ```python
 # À venir après implémentation
-from exodus_speculum import Pipeline
+from CORE_CONFIG.paths import PathConfig
+from FRIGATE_01_SCANNER.CODEBASE import ScannerPipeline
 
-pipeline = Pipeline(mode="conquerant")
-pipeline.process("video_source.mp4", output_format="HORIZONTAL")
+pipeline = ScannerPipeline()
+pipeline.process("video_source.mp4")
 ```
 
 ---
@@ -198,30 +199,55 @@ Système de variantes qui modifie imperceptiblement chaque export (couleur, brui
 
 ---
 
-## 📁 Structure du Projet
+## 📁 Structure du Projet (V2-REBIRTH)
 
 ```
 EXODUS-SPECULUM/
-├── docs/
-│   ├── SPECULUM_STATE.md      # État technique
-│   ├── SPECULUM_PRD.md        # Spécifications
-│   ├── SPECULUM_ROADMAP.md    # Planning
-│   ├── SPECULUM_LOGBOOK.md    # Tâches
-│   ├── SPECULUM_DEVLOG.md     # Journal
-│   └── SPECULUM_VALIDATION.md # Tests
-├── src/                       # (à venir)
-│   ├── f01_scanner/
-│   ├── f02_cortex/
-│   ├── f03_scenographe/
-│   ├── f04_projectionniste/
-│   ├── f05_logistique/
-│   ├── f06_directeur_photo/
-│   ├── f07_alchimiste/
-│   └── f08_porte_avions/
-├── notebooks/                 # (à venir)
-│   └── EXODUS_SPECULUM.ipynb
-├── assets/                    # (à venir)
-├── tests/                     # (à venir)
+├── FRIGATE_00_CORTEX/          # Intelligence IA
+│   ├── CODEBASE/               # Code Python
+│   ├── INPUT/                  # Entrées
+│   └── OUTPUT/                 # Sorties
+├── FRIGATE_01_SCANNER/         # Extraction données spatiales
+│   ├── CODEBASE/
+│   ├── INPUT/
+│   └── OUTPUT/
+├── FRIGATE_02_SCENOGRAPHE/     # Génération géométrie 3D
+│   ├── CODEBASE/
+│   ├── INPUT/
+│   └── OUTPUT/
+├── FRIGATE_03_PROJECTIONNISTE/ # Camera Projection Mapping
+│   ├── CODEBASE/
+│   ├── INPUT/
+│   └── OUTPUT/
+├── FRIGATE_04_LOGISTIQUE/      # Asset replacement
+│   ├── CODEBASE/
+│   ├── INPUT/
+│   └── OUTPUT/
+├── FRIGATE_05_DIRECTEUR_PHOTO/ # Animation caméra
+│   ├── CODEBASE/
+│   ├── INPUT/
+│   └── OUTPUT/
+├── FRIGATE_06_ALCHIMISTE/      # Rendu + Upscaling
+│   ├── CODEBASE/
+│   ├── INPUT/
+│   └── OUTPUT/
+├── FRIGATE_07_PORTE_AVIONS/    # Assemblage final
+│   ├── CODEBASE/
+│   ├── INPUT/
+│   └── OUTPUT/
+├── CORE_CONFIG/                # Configuration centrale
+│   └── paths.py
+├── CORE_TOOLS/                 # Scripts utilitaires
+│   ├── install_dependencies.py
+│   └── test_shared_resources.py
+├── docs/                       # Documentation (Hexagramme)
+│   ├── SPECULUM_STATE.md
+│   ├── SPECULUM_PRD.md
+│   ├── SPECULUM_ROADMAP.md
+│   ├── SPECULUM_LOGBOOK.md
+│   ├── SPECULUM_DEVLOG.md
+│   └── SPECULUM_VALIDATION.md
+├── notebooks/                  # Notebooks Colab
 └── README.md
 ```
 
