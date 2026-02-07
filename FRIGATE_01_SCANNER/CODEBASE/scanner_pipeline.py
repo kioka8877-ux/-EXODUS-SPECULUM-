@@ -4,7 +4,6 @@ EXODUS-SPECULUM - Frégate SCANNER - Pipeline Complet
 Orchestre l'extraction et l'estimation de profondeur.
 """
 
-import os
 import json
 import time
 from pathlib import Path
@@ -19,6 +18,8 @@ except ImportError:
 
 from .frame_extractor import FrameExtractor
 from .depth_estimator import DepthEstimator
+from .object_detector import ObjectDetector
+from .segmenter import SAMSegmenter
 
 
 class ScannerPipeline:
@@ -48,8 +49,10 @@ class ScannerPipeline:
         
         self.frame_extractor = None
         self.depth_estimator = None
+        self.object_detector = None
+        self.segmenter = None
         
-        print(f"🔍 Scanner Pipeline initialisé")
+        print("🔍 Scanner Pipeline initialisé")
         print(f"   Project ID: {project_id}")
         print(f"   Output: {self.output_dir}")
     
@@ -57,7 +60,10 @@ class ScannerPipeline:
             video_path: str,
             fps: float = 2.0,
             depth_model: str = 'vit-large',
-            skip_depth: bool = False) -> Dict[str, Any]:
+            skip_depth: bool = False,
+            skip_detection: bool = False,
+            skip_segmentation: bool = False,
+            keyframe_count: int = 3) -> Dict[str, Any]:
         """
         Exécute le pipeline complet.
         
@@ -66,6 +72,9 @@ class ScannerPipeline:
             fps: Frames par seconde à extraire
             depth_model: Modèle de profondeur
             skip_depth: Sauter l'estimation de profondeur
+            skip_detection: Sauter la détection d'objets
+            skip_segmentation: Sauter la segmentation SAM
+            keyframe_count: Nombre de keyframes pour détection/segmentation
             
         Returns:
             Dict avec tous les résultats
@@ -109,8 +118,67 @@ class ScannerPipeline:
         else:
             results['stages']['depth'] = {'skipped': True}
         
+        if not skip_detection and extraction_result['frame_count'] > 0:
+            print("\n" + "=" * 60)
+            print("STAGE 3: Détection d'objets (YOLOv8)")
+            print("=" * 60)
+            
+            self.object_detector = ObjectDetector()
+            
+            frames = extraction_result['frames']
+            step = max(1, len(frames) // keyframe_count)
+            keyframes = frames[::step][:keyframe_count]
+            
+            print(f"   Keyframes sélectionnées: {len(keyframes)}")
+            
+            detection_result = self.object_detector.detect_batch(keyframes)
+            results['stages']['detection'] = {
+                'keyframe_count': len(keyframes),
+                'keyframes': keyframes,
+                'detections': detection_result
+            }
+            
+            total_detections = sum(len(d) for d in detection_result.values())
+            print(f"✅ Détection terminée: {total_detections} objets")
+            
+            if not skip_segmentation and total_detections > 0:
+                print("\n" + "=" * 60)
+                print("STAGE 4: Segmentation (SAM)")
+                print("=" * 60)
+                
+                self.segmenter = SAMSegmenter()
+                
+                segmentation_result = {}
+                for kf, dets in detection_result.items():
+                    if dets:
+                        segmented = self.segmenter.segment_detections(kf, dets)
+                        segmentation_result[kf] = [
+                            {k: v for k, v in s.items() if k != 'mask'}
+                            for s in segmented
+                        ]
+                        
+                        masks_dir = self.output_dir / 'masks' / Path(kf).stem
+                        masks_dir.mkdir(parents=True, exist_ok=True)
+                        for i, seg in enumerate(segmented):
+                            if seg.get('mask') is not None:
+                                mask_path = masks_dir / f"mask_{i:03d}_{seg['class_name']}.png"
+                                self.segmenter.save_mask(seg['mask'], str(mask_path))
+                
+                results['stages']['segmentation'] = {
+                    'segmentations': segmentation_result,
+                    'masks_dir': str(self.output_dir / 'masks')
+                }
+                
+                self.segmenter.cleanup()
+                print("✅ Segmentation terminée")
+            else:
+                results['stages']['segmentation'] = {'skipped': True}
+        else:
+            results['stages']['detection'] = {'skipped': True}
+            results['stages']['segmentation'] = {'skipped': True}
+        
         print("\n" + "=" * 60)
-        print("STAGE 3: Export données spatiales")
+        print("STAGE 5: Export données spatiales")
         print("=" * 60)
         
         total_time = time.time() - start_time
@@ -128,6 +196,16 @@ class ScannerPipeline:
                 'available': not skip_depth,
                 'model': depth_model if not skip_depth else None,
                 'directory': str(self.output_dir / 'depth_maps') if not skip_depth else None
+            },
+            'object_detection': {
+                'available': not skip_detection,
+                'model': 'yolov8x' if not skip_detection else None,
+                'keyframe_count': keyframe_count if not skip_detection else 0
+            },
+            'segmentation': {
+                'available': not skip_segmentation and not skip_detection,
+                'model': 'sam_vit_h' if not skip_segmentation and not skip_detection else None,
+                'masks_directory': str(self.output_dir / 'masks') if not skip_segmentation else None
             },
             'processing_time_seconds': total_time
         }
@@ -148,6 +226,11 @@ class ScannerPipeline:
         print(f"  Frames extraites: {extraction_result['frame_count']}")
         if not skip_depth:
             print(f"  Depth maps: {results['stages']['depth'].get('successful', 0)}")
+        if not skip_detection:
+            det_count = sum(len(d) for d in results['stages'].get('detection', {}).get('detections', {}).values())
+            print(f"  Objets détectés: {det_count}")
+        if not skip_segmentation and not skip_detection:
+            print(f"  Masques générés: {str(self.output_dir / 'masks')}")
         print(f"  Temps total: {total_time:.1f}s")
         print(f"  Output: {self.output_dir}")
         print("=" * 60)
