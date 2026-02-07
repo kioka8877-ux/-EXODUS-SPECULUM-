@@ -27,8 +27,14 @@ ROOT_DRIVE = DRIVE_ROOT
 
 SHARED_RESOURCES = f"{DRIVE_ROOT}/SHARED_RESOURCES/"
 AI_MODELS_DIR = f"{SHARED_RESOURCES}AI_MODELS/"
+
 DEPTH_MODEL_BASE_PATH = f"{AI_MODELS_DIR}depth_anything_v2/"
 DEPTH_MODEL_PATH = f"{DEPTH_MODEL_BASE_PATH}depth_anything_v2_vitl.pth"
+
+YOLO_MODEL_PATH = f"{AI_MODELS_DIR}yolov8/yolov8x.pt"
+
+SAM_MODEL_PATH = f"{AI_MODELS_DIR}sam/sam_vit_h_4b8939.pth"
+SAM_MODEL_TYPE = "vit_h"
 
 # ============================================================================
 # CONFIGURATION FRÉGATES (V2-REBIRTH: F00-F07)
@@ -202,6 +208,9 @@ __all__ = [
     'AI_MODELS_DIR',
     'DEPTH_MODEL_BASE_PATH',
     'DEPTH_MODEL_PATH',
+    'YOLO_MODEL_PATH',
+    'SAM_MODEL_PATH',
+    'SAM_MODEL_TYPE',
     'FRIGATES',
     'F00_CODEBASE', 'F00_INPUT', 'F00_OUTPUT',
     'F01_CODEBASE', 'F01_INPUT', 'F01_OUTPUT',
