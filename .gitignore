@@ -73,6 +73,14 @@ render_output/
 *.mkv
 !test_data/**/*.mp4
 
+# Frigate outputs (generated at runtime)
+FRIGATE_*/OUTPUT/*
+!FRIGATE_*/OUTPUT/.gitkeep
+
+# Frigate inputs (user-provided)
+FRIGATE_*/INPUT/*
+!FRIGATE_*/INPUT/.gitkeep
+
 # Secrets
 .env
 .env.local
