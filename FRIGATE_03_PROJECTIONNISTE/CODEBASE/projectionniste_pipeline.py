@@ -19,21 +19,21 @@ except ImportError:
     bpy = None
 
 import sys
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 try:
-    from src.config.paths import (
-        F03_OUTPUT, F00_OUTPUT, F01_OUTPUT, 
-        F04_CODEBASE, F04_INPUT, F04_OUTPUT,
+    from CORE_CONFIG.paths import (
+        F02_OUTPUT, F00_OUTPUT, F01_OUTPUT, 
+        F03_CODEBASE, F03_INPUT, F03_OUTPUT,
         PathConfig
     )
 except ImportError:
-    F03_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_03_SCENOGRAPHE/OUTPUT/"
+    F02_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_02_SCENOGRAPHE/OUTPUT/"
     F00_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_00_CORTEX/OUTPUT/"
     F01_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_01_SCANNER/OUTPUT/"
-    F04_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_04_PROJECTIONNISTE/OUTPUT/"
-    F04_INPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_04_PROJECTIONNISTE/INPUT/"
-    F04_CODEBASE = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_04_PROJECTIONNISTE/"
+    F03_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_03_PROJECTIONNISTE/OUTPUT/"
+    F03_INPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_03_PROJECTIONNISTE/INPUT/"
+    F03_CODEBASE = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_03_PROJECTIONNISTE/"
     PathConfig = None
 
 from .camera_setup import CameraSetup
