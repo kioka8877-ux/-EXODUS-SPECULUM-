@@ -30,6 +30,62 @@
 
 ---
 
+### [2026-02-07] - V2-REBIRTH: Restructuration Complète du Dépôt
+
+**Contexte:**
+Migration vers structure de Flotte Autonome pour miroir exact du Drive. Chaque Frégate devient une île isolée à la racine avec sa propre structure CODEBASE/INPUT/OUTPUT.
+
+**Solution:**
+- Création structure FRIGATE_XX_NOM/{CODEBASE,INPUT,OUTPUT} pour 8 frégates
+- Migration code depuis src/frigates/ avec renumération (F03-F08 → F02-F07)
+- Création CORE_CONFIG/paths.py avec nouvelle numérotation
+- Création CORE_TOOLS/ pour scripts utilitaires
+- Suppression gap F02_ARCHITECT (inexistant)
+
+**Structure finale:**
+```
+/EXODUS-SPECULUM/
+├── FRIGATE_00_CORTEX/{CODEBASE,INPUT,OUTPUT}
+├── FRIGATE_01_SCANNER/{CODEBASE,INPUT,OUTPUT}
+├── FRIGATE_02_SCENOGRAPHE/{CODEBASE,INPUT,OUTPUT}   # ex-F03
+├── FRIGATE_03_PROJECTIONNISTE/{CODEBASE,INPUT,OUTPUT} # ex-F04
+├── FRIGATE_04_LOGISTIQUE/{CODEBASE,INPUT,OUTPUT}    # ex-F05
+├── FRIGATE_05_DIRECTEUR_PHOTO/{CODEBASE,INPUT,OUTPUT} # ex-F06
+├── FRIGATE_06_ALCHIMISTE/{CODEBASE,INPUT,OUTPUT}    # ex-F07
+├── FRIGATE_07_PORTE_AVIONS/{CODEBASE,INPUT,OUTPUT}  # ex-F08
+├── CORE_CONFIG/paths.py
+├── CORE_TOOLS/
+├── docs/
+├── notebooks/
+└── README.md
+```
+
+**Mapping de Renumération:**
+| Ancienne | Nouvelle | Nom |
+|----------|----------|-----|
+| F00 | F00 | CORTEX |
+| F01 | F01 | SCANNER |
+| F03 | F02 | SCÉNOGRAPHE |
+| F04 | F03 | PROJECTIONNISTE |
+| F05 | F04 | LOGISTIQUE |
+| F06 | F05 | DIRECTEUR_PHOTO |
+| F07 | F06 | ALCHIMISTE |
+| F08 | F07 | PORTE_AVIONS |
+
+**Résultats:**
+- 8 frégates isolées avec structure unifiée
+- Compatibilité totale avec structure Drive
+- paths.py mis à jour pour nouvelles références
+- Documentation synchronisée
+
+**Leçon apprise:**
+La structure miroir GitHub↔Drive facilite la synchronisation et la maintenance. Chaque frégate devient un module autonome avec interfaces claires.
+
+**Liens:**
+- Commit: `🔄 V2-REBIRTH: Restructuration Complète du Dépôt`
+
+---
+
 ### [2026-02-06] - F04-A: Frégate PROJECTIONNISTE - Camera Projection Mapping
 
 **Contexte:**
@@ -323,5 +379,5 @@ ffmpeg -y -i input.mp4 -vf fps=2.0 -pix_fmt rgb24 frame_%04d.png
 
 ---
 
-*Dernière mise à jour: 2026-02-06*
-*Entrées: 4*
+*Dernière mise à jour: 2026-02-07*
+*Entrées: 5*

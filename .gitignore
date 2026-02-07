@@ -96,3 +96,15 @@ logs/
 
 # Colab
 sample_data/
+
+# ============================================================================
+# FRIGATE I/O (V2-REBIRTH)
+# ============================================================================
+
+# Frigate outputs (generated at runtime)
+FRIGATE_*/OUTPUT/*
+!FRIGATE_*/OUTPUT/.gitkeep
+
+# Frigate inputs (user-provided)
+FRIGATE_*/INPUT/*
+!FRIGATE_*/INPUT/.gitkeep

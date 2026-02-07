@@ -1,3 +1,0 @@
-"""
-EXODUS-SPECULUM - Source Package
-"""

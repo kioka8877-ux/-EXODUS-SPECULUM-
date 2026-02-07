@@ -17,6 +17,12 @@
 
 ## Phase 0: Fondations
 
+### M - Maintenance & Migration
+
+| ID | Tâche | Status | Assigné | Date Début | Date Fin | Notes |
+|----|-------|--------|---------|------------|----------|-------|
+| M-001 | Migration V2-REBIRTH - Restructuration complète | [x] | Capy | 2026-02-07 | 2026-02-07 | Structure FRIGATE_XX_NOM |
+
 ### P0 - Setup & Documentation
 
 | ID | Tâche | Status | Assigné | Date Début | Date Fin | Notes |
@@ -281,4 +287,4 @@
 
 ---
 
-*Dernière mise à jour: 2026-02-06*
+*Dernière mise à jour: 2026-02-07*
