@@ -73,72 +73,74 @@ GEMINI_API_KEY=xxx               # Google AI Studio (free tier: 60 QPM)
 
 ---
 
-## 2. Architecture des 8 Frégates
+## 2. Architecture des 8 Frégates (V2-REBIRTH)
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                        EXODUS-SPECULUM FLEET                                │
+│                   EXODUS-SPECULUM FLEET (V2-REBIRTH)                        │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
 │   ┌──────────┐    ┌──────────┐                                             │
-│   │   F01    │    │   F02    │                                             │
-│   │ SCANNER  │───►│  CORTEX  │                                             │
-│   │ (Extract)│    │   (AI)   │                                             │
+│   │   F00    │◄───│   F01    │                                             │
+│   │  CORTEX  │    │ SCANNER  │                                             │
+│   │   (AI)   │    │ (Extract)│                                             │
 │   └────┬─────┘    └────┬─────┘                                             │
 │        │               │                                                    │
 │        └───────┬───────┘                                                    │
 │                ▼                                                            │
 │        ┌──────────────┐                                                     │
-│        │     F03      │                                                     │
+│        │     F02      │                                                     │
 │        │ SCÉNOGRAPHE  │                                                     │
 │        │  (Geometry)  │                                                     │
 │        └──────┬───────┘                                                     │
 │               ▼                                                             │
 │        ┌──────────────┐                                                     │
-│        │     F04      │                                                     │
+│        │     F03      │                                                     │
 │        │PROJECTIONNISTE│                                                    │
 │        │  (Mapping)   │                                                     │
 │        └──────┬───────┘                                                     │
 │               ▼                                                             │
 │        ┌──────────────┐                                                     │
-│        │     F05      │                                                     │
+│        │     F04      │                                                     │
 │        │ LOGISTIQUE   │                                                     │
 │        │  (Assets)    │                                                     │
 │        └──────┬───────┘                                                     │
 │               ▼                                                             │
 │        ┌──────────────┐                                                     │
-│        │     F06      │                                                     │
+│        │     F05      │                                                     │
 │        │DIRECTEUR PHOTO│                                                    │
 │        │  (Camera)    │                                                     │
 │        └──────┬───────┘                                                     │
 │               ▼                                                             │
 │        ┌──────────────┐                                                     │
-│        │     F07      │                                                     │
+│        │     F06      │                                                     │
 │        │ ALCHIMISTE   │                                                     │
 │        │  (Render)    │                                                     │
 │        └──────┬───────┘                                                     │
 │               ▼                                                             │
 │        ┌──────────────┐                                                     │
-│        │     F08      │                                                     │
+│        │     F07      │                                                     │
 │        │PORTE-AVIONS  │                                                     │
 │        │  (Output)    │                                                     │
 │        └──────────────┘                                                     │
 │                                                                             │
+│   Structure: FRIGATE_XX_NOM/{CODEBASE,INPUT,OUTPUT}                        │
+│                                                                             │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Description des Frégates
+### Description des Frégates (V2 - Renumération F00-F07)
 
 | ID | Nom | Rôle | Input Principal | Output Principal |
 |----|-----|------|-----------------|------------------|
+| F00 | CORTEX | Intelligence IA | frames + spatial_data | masterplan.json |
 | F01 | SCANNER | Extraction données spatiales | video.mp4 | depth_maps/, masks/, spatial_data.json |
-| F02 | CORTEX | Intelligence IA | frames + spatial_data | masterplan.json |
-| F03 | SCÉNOGRAPHE | Génération géométrie | masterplan + depth | scene_shell.blend |
-| F04 | PROJECTIONNISTE | Camera Projection Mapping | scene_shell + frames | scene_projected.blend |
-| F05 | LOGISTIQUE | Asset replacement | scene_projected | scene_furnished.blend |
-| F06 | DIRECTEUR PHOTO | Camera animation | scene_furnished | scene_animated.blend |
-| F07 | ALCHIMISTE | Rendu + Upscaling | scene_animated | frames/ (4K) |
-| F08 | PORTE-AVIONS | Assemblage final | frames/ + audio | final_output.mp4 |
+| F02 | SCÉNOGRAPHE | Génération géométrie | masterplan + depth | scene_shell.blend |
+| F03 | PROJECTIONNISTE | Camera Projection Mapping | scene_shell + frames | scene_projected.blend |
+| F04 | LOGISTIQUE | Asset replacement | scene_projected | scene_furnished.blend |
+| F05 | DIRECTEUR PHOTO | Camera animation | scene_furnished | scene_animated.blend |
+| F06 | ALCHIMISTE | Rendu + Upscaling | scene_animated | frames/ (4K) |
+| F07 | PORTE-AVIONS | Assemblage final | frames/ + audio | final_output.mp4 |
 
 ---
 
@@ -259,14 +261,14 @@ TEMP_PATH = "/content/temp"
 | Composant | Status | Progression |
 |-----------|--------|-------------|
 | Hexagramme documentaire | ✅ Complet | 100% |
+| F00-CORTEX | ⬜ À faire | 0% |
 | F01-SCANNER | ✅ Complet | 100% |
-| F02-CORTEX | ⬜ À faire | 0% |
-| F03-SCÉNOGRAPHE | 🟡 En cours | 80% |
-| F04-PROJECTIONNISTE | ✅ Complet | 82% |
-| F05-LOGISTIQUE | ⬜ À faire | 0% |
-| F06-DIRECTEUR_PHOTO | ⬜ À faire | 0% |
-| F07-ALCHIMISTE | ⬜ À faire | 0% |
-| F08-PORTE_AVIONS | ⬜ À faire | 0% |
+| F02-SCÉNOGRAPHE | 🟡 En cours | 80% |
+| F03-PROJECTIONNISTE | ✅ Complet | 82% |
+| F04-LOGISTIQUE | ⬜ À faire | 0% |
+| F05-DIRECTEUR_PHOTO | ⬜ À faire | 0% |
+| F06-ALCHIMISTE | ⬜ À faire | 0% |
+| F07-PORTE_AVIONS | ⬜ À faire | 0% |
 | Tests unitaires | ⬜ À faire | 0% |
 | Tests intégration | ⬜ À faire | 0% |
 
@@ -292,13 +294,13 @@ TEMP_PATH = "/content/temp"
 | F01-008 | Export PNG 16-bit | ✅ | 2026-02-06 |
 | F01-009 | Optimisation VRAM depth | ✅ | 2026-02-06 |
 
-#### F02-CORTEX
+#### F00-CORTEX
 - [ ] Gemini API integration
 - [ ] Room analysis prompt engineering
 - [ ] masterplan.json schema
 - [ ] POI heatmap generation
 
-#### F03-SCÉNOGRAPHE
+#### F02-SCÉNOGRAPHE
 - [x] Blender headless setup
 - [x] Blob geometry generation (6 surfaces)
 - [x] Displacement modifier setup
@@ -307,7 +309,7 @@ TEMP_PATH = "/content/temp"
 - [x] Collections organization
 - [ ] Visual calibration tests
 
-#### F04-PROJECTIONNISTE
+#### F03-PROJECTIONNISTE
 - [x] Camera Setup (9 movement types)
 - [x] UV Project from Camera (headless compatible)
 - [x] Multi-projection shader
@@ -315,25 +317,25 @@ TEMP_PATH = "/content/temp"
 - [x] Edge feathering
 - [ ] Visual calibration tests
 
-#### F05-LOGISTIQUE
+#### F04-LOGISTIQUE
 - [ ] Ghost Proxy system
 - [ ] Asset library structure
 - [ ] LOD system
 - [ ] Linked asset management
 
-#### F06-DIRECTEUR_PHOTO
+#### F05-DIRECTEUR_PHOTO
 - [ ] Sensor shift (Smart-Crop)
 - [ ] Handheld F-curves
 - [ ] FOV compensation
 - [ ] Format conversion matrix
 
-#### F07-ALCHIMISTE
+#### F06-ALCHIMISTE
 - [ ] Cycles render pipeline
 - [ ] OptiX denoiser setup
 - [ ] Real-ESRGAN integration
 - [ ] RIFE integration
 
-#### F08-PORTE_AVIONS
+#### F07-PORTE_AVIONS
 - [ ] FFmpeg encoding pipeline
 - [ ] Audio procedural generation
 - [ ] Noise injection anti-fingerprint
@@ -389,5 +391,5 @@ TEMP_PATH = "/content/temp"
 
 ---
 
-*Dernière mise à jour: 2026-02-06*
-*Version: 0.4.0-alpha (F04-PROJECTIONNISTE)*
+*Dernière mise à jour: 2026-02-07*
+*Version: 0.5.0-alpha (V2-REBIRTH)*

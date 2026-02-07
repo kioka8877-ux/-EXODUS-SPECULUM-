@@ -30,6 +30,45 @@
 
 ---
 
+### [2026-02-07] - Migration V2-REBIRTH: Restructuration Complète
+
+**Contexte:**
+Migration vers structure de Flotte Autonome. Chaque Frégate devient une île isolée à la racine du projet avec architecture CODEBASE/INPUT/OUTPUT standardisée.
+
+**Solution:**
+- Création de 8 dossiers FRIGATE_XX_NOM/{CODEBASE,INPUT,OUTPUT}
+- Migration du code depuis src/frigates/ vers les nouveaux CODEBASE/
+- Renumération: F03-F08 → F02-F07 (suppression gap F02_ARCHITECT)
+- Création CORE_CONFIG/ pour la configuration centralisée
+- Création CORE_TOOLS/ pour les scripts utilitaires
+- Mise à jour de paths.py avec nouvelle numérotation
+
+**Mapping de migration:**
+```
+src/frigates/f00_cortex/         → FRIGATE_00_CORTEX/CODEBASE/
+src/frigates/f01_scanner/        → FRIGATE_01_SCANNER/CODEBASE/
+src/frigates/f03_scenographe/    → FRIGATE_02_SCENOGRAPHE/CODEBASE/  (F03→F02)
+src/frigates/f04_projectionniste/→ FRIGATE_03_PROJECTIONNISTE/CODEBASE/ (F04→F03)
+src/frigates/f05_logistique/     → FRIGATE_04_LOGISTIQUE/CODEBASE/   (F05→F04)
+src/frigates/f06_directeur_photo/→ FRIGATE_05_DIRECTEUR_PHOTO/CODEBASE/ (F06→F05)
+src/frigates/f07_alchimiste/     → FRIGATE_06_ALCHIMISTE/CODEBASE/   (F07→F06)
+src/frigates/f08_porte_avions/   → FRIGATE_07_PORTE_AVIONS/CODEBASE/ (F08→F07)
+```
+
+**Résultats:**
+- Structure miroir exact du Google Drive
+- 8 Frégates F00-F07 autonomes
+- Suppression des dossiers src/ et scripts/
+- Documentation mise à jour (STATE, README, LOGBOOK)
+
+**Leçon apprise:**
+La structure CODEBASE/INPUT/OUTPUT permet une meilleure isolation des données entre les frégates et facilite la synchronisation avec Google Drive pour les workflows Colab.
+
+**Liens:**
+- Commit: `🔄 V2-REBIRTH: Migration structure Flotte Autonome`
+
+---
+
 ### [2026-02-06] - F04-A: Frégate PROJECTIONNISTE - Camera Projection Mapping
 
 **Contexte:**
@@ -323,5 +362,5 @@ ffmpeg -y -i input.mp4 -vf fps=2.0 -pix_fmt rgb24 frame_%04d.png
 
 ---
 
-*Dernière mise à jour: 2026-02-06*
-*Entrées: 4*
+*Dernière mise à jour: 2026-02-07*
+*Entrées: 5*

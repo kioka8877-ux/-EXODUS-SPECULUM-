@@ -15,6 +15,22 @@
 
 ---
 
+## Migration V2-REBIRTH
+
+### M - Migration Structurelle
+
+| ID | Tâche | Status | Assigné | Date Début | Date Fin | Notes |
+|----|-------|--------|---------|------------|----------|-------|
+| M-001 | Restructurer dépôt GitHub (miroir Drive) | [x] | Capy | 2026-02-07 | 2026-02-07 | ✅ V2-REBIRTH complet |
+| M-002 | Créer FRIGATE_XX_NOM/{CODEBASE,INPUT,OUTPUT} | [x] | Capy | 2026-02-07 | 2026-02-07 | 8 frégates |
+| M-003 | Migrer code src/frigates → CODEBASE/ | [x] | Capy | 2026-02-07 | 2026-02-07 | Renumération F03-F08→F02-F07 |
+| M-004 | Créer CORE_CONFIG/paths.py | [x] | Capy | 2026-02-07 | 2026-02-07 | Nouvelle numérotation |
+| M-005 | Migrer scripts → CORE_TOOLS/ | [x] | Capy | 2026-02-07 | 2026-02-07 | install_dependencies.py, test_shared_resources.py |
+| M-006 | Mettre à jour documentation | [x] | Capy | 2026-02-07 | 2026-02-07 | STATE, README, DEVLOG, LOGBOOK |
+| M-007 | Supprimer src/ et scripts/ | [x] | Capy | 2026-02-07 | 2026-02-07 | Nettoyage |
+
+---
+
 ## Phase 0: Fondations
 
 ### P0 - Setup & Documentation
@@ -278,7 +294,8 @@
 | 2026-02-06 | Vulkan | Création initiale, structure complète |
 | 2026-02-06 | Capy | F03-SCÉNOGRAPHE implémenté (12 tâches) |
 | 2026-02-06 | Capy | F04-PROJECTIONNISTE implémenté (14 tâches) |
+| 2026-02-07 | Capy | Migration V2-REBIRTH complète (7 tâches) |
 
 ---
 
-*Dernière mise à jour: 2026-02-06*
+*Dernière mise à jour: 2026-02-07*

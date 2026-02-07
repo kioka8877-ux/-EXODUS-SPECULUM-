@@ -1,0 +1,26 @@
+#!/usr/bin/env python3
+"""
+CORE_CONFIG - Configuration centrale EXODUS-SPECULUM
+"""
+
+from .paths import *
+
+__all__ = [
+    'DRIVE_ROOT',
+    'ROOT_DRIVE',
+    'SHARED_RESOURCES',
+    'AI_MODELS_DIR',
+    'DEPTH_MODEL_BASE_PATH',
+    'DEPTH_MODEL_PATH',
+    'FRIGATES',
+    'F00_CODEBASE', 'F00_INPUT', 'F00_OUTPUT',
+    'F01_CODEBASE', 'F01_INPUT', 'F01_OUTPUT',
+    'F02_CODEBASE', 'F02_INPUT', 'F02_OUTPUT',
+    'F03_CODEBASE', 'F03_INPUT', 'F03_OUTPUT',
+    'F04_CODEBASE', 'F04_INPUT', 'F04_OUTPUT',
+    'F05_CODEBASE', 'F05_INPUT', 'F05_OUTPUT',
+    'F06_CODEBASE', 'F06_INPUT', 'F06_OUTPUT',
+    'F07_CODEBASE', 'F07_INPUT', 'F07_OUTPUT',
+    'ASSETSHUB_PATH',
+    'PathConfig',
+]
