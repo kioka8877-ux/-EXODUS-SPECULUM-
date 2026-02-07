@@ -30,15 +30,15 @@ except ImportError:
     BPY_AVAILABLE = False
     bpy = None
 
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 try:
-    from src.config.paths import (
-        F06_OUTPUT, F07_OUTPUT, PathConfig
+    from CORE_CONFIG.paths import (
+        F05_OUTPUT, F06_OUTPUT, PathConfig
     )
 except ImportError:
-    F06_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_06_DIRECTOR/OUTPUT/"
-    F07_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_07_ALCHIMISTE/OUTPUT/"
+    F05_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_05_DIRECTEUR_PHOTO/OUTPUT/"
+    F06_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_06_ALCHIMISTE/OUTPUT/"
     PathConfig = None
 
 from .cycles_renderer import CyclesRenderer, TURBO_MODES
@@ -174,7 +174,7 @@ class AlchimistePipeline:
         
         Args:
             scene_animated_path: Chemin du .blend (défaut: F06_OUTPUT)
-            output_path: Dossier de sortie (défaut: F07_OUTPUT/project_id/)
+            output_path: Dossier de sortie (défaut: F06_OUTPUT/project_id/)
             use_chunking: Utilise le traitement par chunks
             skip_dependency_check: Ignore la vérification des dépendances
             
@@ -190,7 +190,7 @@ class AlchimistePipeline:
             scene_animated_path = f"{F06_OUTPUT}scene_animated.blend"
         
         if output_path is None:
-            output_dir = Path(F07_OUTPUT) / self.project_id
+            output_dir = Path(F06_OUTPUT) / self.project_id
         else:
             output_dir = Path(output_path)
         output_dir.mkdir(parents=True, exist_ok=True)
@@ -399,7 +399,7 @@ def run_alchimiste_pipeline(
     
     Args:
         scene_animated_path: Chemin du .blend (défaut: F06_OUTPUT)
-        output_path: Dossier de sortie (défaut: F07_OUTPUT)
+        output_path: Dossier de sortie (défaut: F06_OUTPUT)
         project_id: Identifiant du projet
         turbo_mode: Mode TURBO-SPECULUM
         use_chunking: Active le traitement par chunks
@@ -428,7 +428,7 @@ if __name__ == "__main__":
     print(f"   EXODUS_VERSION: {EXODUS_VERSION}")
     print(f"   BPY_AVAILABLE: {BPY_AVAILABLE}")
     print(f"   F06_OUTPUT: {F06_OUTPUT}")
-    print(f"   F07_OUTPUT: {F07_OUTPUT}")
+    print(f"   F06_OUTPUT: {F06_OUTPUT}")
     
     print(f"\n📋 TURBO_MODES:")
     for mode, config in TURBO_MODES.items():

@@ -19,13 +19,14 @@ except ImportError:
     bpy = None
 
 import sys
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
+PROJECT_ROOT = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(PROJECT_ROOT))
 
 try:
-    from src.config.paths import F03_INPUT, F03_OUTPUT, F00_OUTPUT, F01_OUTPUT, PathConfig
+    from CORE_CONFIG.paths import F02_INPUT, F02_OUTPUT, F00_OUTPUT, F01_OUTPUT, PathConfig
 except ImportError:
-    F03_INPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_03_SCENOGRAPHE/INPUT/"
-    F03_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_03_SCENOGRAPHE/OUTPUT/"
+    F02_INPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_02_SCENOGRAPHE/INPUT/"
+    F02_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_02_SCENOGRAPHE/OUTPUT/"
     F00_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_00_CORTEX/OUTPUT/"
     F01_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_01_SCANNER/OUTPUT/"
     PathConfig = None
@@ -56,13 +57,13 @@ class ScenographePipeline:
         """
         Args:
             project_id: Identifiant unique du projet
-            output_base: Dossier racine de sortie (défaut: F03_OUTPUT)
+            output_base: Dossier racine de sortie (défaut: F02_OUTPUT)
         """
         if not BPY_AVAILABLE:
             raise RuntimeError("Blender Python (bpy) not available. Run in Blender environment.")
         
         if output_base is None:
-            output_base = F03_OUTPUT
+            output_base = F02_OUTPUT
         
         self.project_id = project_id
         self.output_dir = Path(output_base) / project_id
@@ -86,8 +87,8 @@ class ScenographePipeline:
         
         search_paths = [
             Path(F00_OUTPUT) / self.project_id / "masterplan.json",
-            Path(F03_INPUT) / self.project_id / "masterplan.json",
-            Path(F03_INPUT) / "masterplan.json",
+            Path(F02_INPUT) / self.project_id / "masterplan.json",
+            Path(F02_INPUT) / "masterplan.json",
         ]
         
         for path in search_paths:
@@ -105,8 +106,8 @@ class ScenographePipeline:
         
         search_paths = [
             Path(F01_OUTPUT) / self.project_id / "depth_maps",
-            Path(F03_INPUT) / self.project_id / "depth_maps",
-            Path(F03_INPUT) / "depth_maps",
+            Path(F02_INPUT) / self.project_id / "depth_maps",
+            Path(F02_INPUT) / "depth_maps",
         ]
         
         for path in search_paths:

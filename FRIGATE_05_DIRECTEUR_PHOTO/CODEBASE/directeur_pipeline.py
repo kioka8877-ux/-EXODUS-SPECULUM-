@@ -26,19 +26,20 @@ except ImportError:
     bpy = None
 
 import sys
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
+PROJECT_ROOT = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(PROJECT_ROOT))
 
 try:
-    from src.config.paths import (
-        F05_OUTPUT, F06_OUTPUT, F00_OUTPUT,
-        F06_CODEBASE, F06_INPUT,
+    from CORE_CONFIG.paths import (
+        F04_OUTPUT, F05_OUTPUT, F00_OUTPUT,
+        F05_CODEBASE, F05_INPUT,
         PathConfig
     )
 except ImportError:
-    F05_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_05_LOGISTIQUE/OUTPUT/"
-    F06_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_06_DIRECTOR/OUTPUT/"
-    F06_INPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_06_DIRECTOR/INPUT/"
-    F06_CODEBASE = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_06_DIRECTOR/"
+    F04_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_04_LOGISTIQUE/OUTPUT/"
+    F05_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_05_DIRECTEUR_PHOTO/OUTPUT/"
+    F05_INPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_05_DIRECTEUR_PHOTO/INPUT/"
+    F05_CODEBASE = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_05_DIRECTEUR_PHOTO/"
     F00_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_00_CORTEX/OUTPUT/"
     PathConfig = None
 
@@ -73,13 +74,13 @@ class DirecteurPipeline:
         """
         Args:
             project_id: Identifiant unique du projet
-            output_base: Dossier racine de sortie (défaut: F06_OUTPUT)
+            output_base: Dossier racine de sortie (défaut: F05_OUTPUT)
         """
         if not BPY_AVAILABLE:
             raise RuntimeError("🚫 Blender Python (bpy) not available. Run in Blender environment.")
         
         if output_base is None:
-            output_base = F06_OUTPUT
+            output_base = F05_OUTPUT
         
         self.project_id = project_id
         self.output_dir = Path(output_base) / project_id
@@ -104,8 +105,8 @@ class DirecteurPipeline:
         
         search_paths = [
             Path(F05_OUTPUT) / self.project_id / "scene_furnished.blend",
-            Path(F06_INPUT) / self.project_id / "scene_furnished.blend",
-            Path(F06_INPUT) / "scene_furnished.blend",
+            Path(F05_INPUT) / self.project_id / "scene_furnished.blend",
+            Path(F05_INPUT) / "scene_furnished.blend",
         ]
         
         for path in search_paths:
@@ -123,8 +124,8 @@ class DirecteurPipeline:
         
         search_paths = [
             Path(F00_OUTPUT) / self.project_id / "masterplan.json",
-            Path(F06_INPUT) / self.project_id / "masterplan.json",
-            Path(F06_INPUT) / "masterplan.json",
+            Path(F05_INPUT) / self.project_id / "masterplan.json",
+            Path(F05_INPUT) / "masterplan.json",
         ]
         
         for path in search_paths:
@@ -470,7 +471,7 @@ if __name__ == "__main__":
     else:
         print(f"\n📦 Test configuration (sans Blender):")
         print(f"   F05_OUTPUT: {F05_OUTPUT}")
-        print(f"   F06_OUTPUT: {F06_OUTPUT}")
+        print(f"   F05_OUTPUT: {F05_OUTPUT}")
         print(f"   F00_OUTPUT: {F00_OUTPUT}")
         print(f"   BPY_AVAILABLE: {BPY_AVAILABLE}")
         
