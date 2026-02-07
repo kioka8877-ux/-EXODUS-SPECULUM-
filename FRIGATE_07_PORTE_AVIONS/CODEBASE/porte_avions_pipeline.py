@@ -21,7 +21,7 @@ Stages:
 6. Export multi-plateformes
 
 Usage:
-    from src.frigates.f08_porte_avions import run_porte_avions_pipeline
+    from FRIGATE_07_PORTE_AVIONS.CODEBASE.porte_avions_pipeline import run_porte_avions_pipeline
     
     result = run_porte_avions_pipeline(
         video_input="/path/to/temp_render.mp4",
@@ -39,16 +39,16 @@ from pathlib import Path
 from datetime import datetime
 from typing import Dict, Any, Optional, List
 
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 try:
-    from src.config.paths import (
-        F07_OUTPUT, ASSETSHUB_PATH, DRIVE_ROOT
+    from CORE_CONFIG.paths import (
+        F06_OUTPUT, ASSETSHUB_PATH, DRIVE_ROOT
     )
-    F08_OUTPUT = f"{DRIVE_ROOT}/FRIGATE_08_PORTE_AVIONS/OUTPUT/"
+    F07_OUTPUT = f"{DRIVE_ROOT}/FRIGATE_07_PORTE_AVIONS/OUTPUT/"
 except ImportError:
-    F07_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_07_ALCHIMISTE/OUTPUT/"
-    F08_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_08_PORTE_AVIONS/OUTPUT/"
+    F06_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_06_ALCHIMISTE/OUTPUT/"
+    F07_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_07_PORTE_AVIONS/OUTPUT/"
     ASSETSHUB_PATH = "/content/drive/MyDrive/EXODUS-SPECULUM/ASSETSHUB/"
 
 from .ffmpeg_encoder import FFmpegEncoder, CODEC_PROFILES

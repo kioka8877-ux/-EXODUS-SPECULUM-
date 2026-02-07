@@ -26,19 +26,19 @@ except ImportError:
     bpy = None
 
 import sys
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 try:
-    from src.config.paths import (
-        F05_OUTPUT, F06_OUTPUT, F00_OUTPUT,
-        F06_CODEBASE, F06_INPUT,
+    from CORE_CONFIG.paths import (
+        F04_OUTPUT, F05_OUTPUT, F00_OUTPUT,
+        F05_CODEBASE, F05_INPUT,
         PathConfig
     )
 except ImportError:
-    F05_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_05_LOGISTIQUE/OUTPUT/"
-    F06_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_06_DIRECTOR/OUTPUT/"
-    F06_INPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_06_DIRECTOR/INPUT/"
-    F06_CODEBASE = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_06_DIRECTOR/"
+    F04_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_04_LOGISTIQUE/OUTPUT/"
+    F05_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_05_DIRECTEUR_PHOTO/OUTPUT/"
+    F05_INPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_05_DIRECTEUR_PHOTO/INPUT/"
+    F05_CODEBASE = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_05_DIRECTEUR_PHOTO/"
     F00_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_00_CORTEX/OUTPUT/"
     PathConfig = None
 

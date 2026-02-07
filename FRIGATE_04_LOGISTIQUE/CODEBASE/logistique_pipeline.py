@@ -22,20 +22,20 @@ except ImportError:
     bpy = None
 
 import sys
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 try:
-    from src.config.paths import (
-        F04_OUTPUT, F05_OUTPUT,
-        F05_CODEBASE, F05_INPUT,
+    from CORE_CONFIG.paths import (
+        F03_OUTPUT, F04_OUTPUT,
+        F04_CODEBASE, F04_INPUT,
         ASSETSHUB_PATH,
         PathConfig
     )
 except ImportError:
-    F04_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_04_PROJECTIONNISTE/OUTPUT/"
-    F05_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_05_LOGISTIQUE/OUTPUT/"
-    F05_INPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_05_LOGISTIQUE/INPUT/"
-    F05_CODEBASE = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_05_LOGISTIQUE/"
+    F03_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_03_PROJECTIONNISTE/OUTPUT/"
+    F04_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_04_LOGISTIQUE/OUTPUT/"
+    F04_INPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_04_LOGISTIQUE/INPUT/"
+    F04_CODEBASE = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_04_LOGISTIQUE/"
     ASSETSHUB_PATH = "/content/drive/MyDrive/EXODUS-SPECULUM/ASSETSHUB/"
     PathConfig = None
 

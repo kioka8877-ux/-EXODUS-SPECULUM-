@@ -30,15 +30,15 @@ except ImportError:
     BPY_AVAILABLE = False
     bpy = None
 
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 try:
-    from src.config.paths import (
-        F06_OUTPUT, F07_OUTPUT, PathConfig
+    from CORE_CONFIG.paths import (
+        F05_OUTPUT, F06_OUTPUT, PathConfig
     )
 except ImportError:
-    F06_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_06_DIRECTOR/OUTPUT/"
-    F07_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_07_ALCHIMISTE/OUTPUT/"
+    F05_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_05_DIRECTEUR_PHOTO/OUTPUT/"
+    F06_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_06_ALCHIMISTE/OUTPUT/"
     PathConfig = None
 
 from .cycles_renderer import CyclesRenderer, TURBO_MODES
