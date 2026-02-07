@@ -1,0 +1,27 @@
+{
+  "verdict": "FAILURE",
+  "project_id": "vulkan_e2e_test",
+  "mode": "dry_run",
+  "config": {
+    "mode": "eclaireur",
+    "resolution": [
+      960,
+      540
+    ],
+    "fps": 12,
+    "samples": 16,
+    "denoiser": "OPENIMAGEDENOISE",
+    "upscale_chain": null
+  },
+  "phases": {
+    "A": {
+      "frigate": "F01_SCANNER",
+      "status": "FAIL",
+      "message": "",
+      "error": "Imports manquants: ['FrameExtractor', 'DepthEstimator', 'ScannerPipeline']",
+      "timestamp": "2026-02-07T13:45:20.977283"
+    }
+  },
+  "total_time_seconds": 0.017696619033813477,
+  "timestamp": "2026-02-07T13:45:20.977300"
+}
