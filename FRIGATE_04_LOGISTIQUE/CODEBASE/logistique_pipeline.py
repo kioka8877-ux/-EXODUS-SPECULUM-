@@ -22,20 +22,21 @@ except ImportError:
     bpy = None
 
 import sys
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
+PROJECT_ROOT = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(PROJECT_ROOT))
 
 try:
-    from src.config.paths import (
-        F04_OUTPUT, F05_OUTPUT,
-        F05_CODEBASE, F05_INPUT,
+    from CORE_CONFIG.paths import (
+        F03_OUTPUT, F04_OUTPUT,
+        F04_CODEBASE, F04_INPUT,
         ASSETSHUB_PATH,
         PathConfig
     )
 except ImportError:
-    F04_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_04_PROJECTIONNISTE/OUTPUT/"
-    F05_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_05_LOGISTIQUE/OUTPUT/"
-    F05_INPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_05_LOGISTIQUE/INPUT/"
-    F05_CODEBASE = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_05_LOGISTIQUE/"
+    F03_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_03_PROJECTIONNISTE/OUTPUT/"
+    F04_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_04_LOGISTIQUE/OUTPUT/"
+    F04_INPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_04_LOGISTIQUE/INPUT/"
+    F04_CODEBASE = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_04_LOGISTIQUE/"
     ASSETSHUB_PATH = "/content/drive/MyDrive/EXODUS-SPECULUM/ASSETSHUB/"
     PathConfig = None
 
@@ -66,13 +67,13 @@ class LogistiquePipeline:
         """
         Args:
             project_id: Identifiant unique du projet
-            output_base: Dossier racine de sortie (défaut: F05_OUTPUT)
+            output_base: Dossier racine de sortie (défaut: F04_OUTPUT)
         """
         if not BPY_AVAILABLE:
             raise RuntimeError("🚫 Blender Python (bpy) not available. Run in Blender environment.")
         
         if output_base is None:
-            output_base = F05_OUTPUT
+            output_base = F04_OUTPUT
         
         self.project_id = project_id
         self.output_dir = Path(output_base) / project_id
@@ -97,8 +98,8 @@ class LogistiquePipeline:
         
         search_paths = [
             Path(F04_OUTPUT) / self.project_id / "scene_projected.blend",
-            Path(F05_INPUT) / self.project_id / "scene_projected.blend",
-            Path(F05_INPUT) / "scene_projected.blend",
+            Path(F04_INPUT) / self.project_id / "scene_projected.blend",
+            Path(F04_INPUT) / "scene_projected.blend",
         ]
         
         for path in search_paths:
@@ -116,7 +117,7 @@ class LogistiquePipeline:
         
         search_paths = [
             Path(ASSETSHUB_PATH),
-            Path(F05_INPUT) / "ASSETSHUB",
+            Path(F04_INPUT) / "ASSETSHUB",
         ]
         
         for path in search_paths:
@@ -361,7 +362,7 @@ if __name__ == "__main__":
     else:
         print(f"\n📦 Test configuration (sans Blender):")
         print(f"   F04_OUTPUT: {F04_OUTPUT}")
-        print(f"   F05_OUTPUT: {F05_OUTPUT}")
+        print(f"   F04_OUTPUT: {F04_OUTPUT}")
         print(f"   ASSETSHUB_PATH: {ASSETSHUB_PATH}")
         print(f"   BPY_AVAILABLE: {BPY_AVAILABLE}")
         

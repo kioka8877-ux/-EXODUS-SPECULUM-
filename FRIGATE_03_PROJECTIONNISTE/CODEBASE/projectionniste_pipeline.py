@@ -19,21 +19,22 @@ except ImportError:
     bpy = None
 
 import sys
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
+PROJECT_ROOT = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(PROJECT_ROOT))
 
 try:
-    from src.config.paths import (
-        F03_OUTPUT, F00_OUTPUT, F01_OUTPUT, 
-        F04_CODEBASE, F04_INPUT, F04_OUTPUT,
+    from CORE_CONFIG.paths import (
+        F02_OUTPUT, F00_OUTPUT, F01_OUTPUT, 
+        F03_CODEBASE, F03_INPUT, F03_OUTPUT,
         PathConfig
     )
 except ImportError:
-    F03_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_03_SCENOGRAPHE/OUTPUT/"
+    F02_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_02_SCENOGRAPHE/OUTPUT/"
     F00_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_00_CORTEX/OUTPUT/"
     F01_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_01_SCANNER/OUTPUT/"
-    F04_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_04_PROJECTIONNISTE/OUTPUT/"
-    F04_INPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_04_PROJECTIONNISTE/INPUT/"
-    F04_CODEBASE = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_04_PROJECTIONNISTE/"
+    F03_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_03_PROJECTIONNISTE/OUTPUT/"
+    F03_INPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_03_PROJECTIONNISTE/INPUT/"
+    F03_CODEBASE = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_03_PROJECTIONNISTE/"
     PathConfig = None
 
 from .camera_setup import CameraSetup
@@ -63,13 +64,13 @@ class ProjectionnistePipeline:
         """
         Args:
             project_id: Identifiant unique du projet
-            output_base: Dossier racine de sortie (défaut: F04_OUTPUT)
+            output_base: Dossier racine de sortie (défaut: F03_OUTPUT)
         """
         if not BPY_AVAILABLE:
             raise RuntimeError("Blender Python (bpy) not available. Run in Blender environment.")
         
         if output_base is None:
-            output_base = F04_OUTPUT
+            output_base = F03_OUTPUT
         
         self.project_id = project_id
         self.output_dir = Path(output_base) / project_id
@@ -93,8 +94,8 @@ class ProjectionnistePipeline:
         
         search_paths = [
             Path(F03_OUTPUT) / self.project_id / "scene_shell.blend",
-            Path(F04_INPUT) / self.project_id / "scene_shell.blend",
-            Path(F04_INPUT) / "scene_shell.blend",
+            Path(F03_INPUT) / self.project_id / "scene_shell.blend",
+            Path(F03_INPUT) / "scene_shell.blend",
         ]
         
         for path in search_paths:
@@ -112,8 +113,8 @@ class ProjectionnistePipeline:
         
         search_paths = [
             Path(F00_OUTPUT) / self.project_id / "masterplan.json",
-            Path(F04_INPUT) / self.project_id / "masterplan.json",
-            Path(F04_INPUT) / "masterplan.json",
+            Path(F03_INPUT) / self.project_id / "masterplan.json",
+            Path(F03_INPUT) / "masterplan.json",
         ]
         
         for path in search_paths:
@@ -131,8 +132,8 @@ class ProjectionnistePipeline:
         
         search_paths = [
             Path(F01_OUTPUT) / self.project_id / "frames",
-            Path(F04_INPUT) / self.project_id / "frames",
-            Path(F04_INPUT) / "frames",
+            Path(F03_INPUT) / self.project_id / "frames",
+            Path(F03_INPUT) / "frames",
         ]
         
         for path in search_paths:

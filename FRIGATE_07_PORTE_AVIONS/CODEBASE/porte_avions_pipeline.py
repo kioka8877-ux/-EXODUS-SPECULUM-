@@ -6,7 +6,7 @@ Pipeline final d'assemblage: Vidéo + Audio ASMR → Export multi-plateformes.
 C'est ici que tous les flux convergent pour produire le livrable final.
 
 Input: temp_render.mp4 ou frames_final/ (depuis F07) + audio config
-Output: FINAL_SPECULUM_TOUR_4K.mp4 dans FRIGATE_08_PORTE_AVIONS/OUTPUT/
+Output: FINAL_SPECULUM_TOUR_4K.mp4 dans FRIGATE_07_PORTE_AVIONS/OUTPUT/
 
 Philosophie: L'Immersion Sensorielle
 Transformer une vidéo 3D en "vraie visite filmée à l'iPhone" via un sound design
@@ -21,7 +21,7 @@ Stages:
 6. Export multi-plateformes
 
 Usage:
-    from src.frigates.f08_porte_avions import run_porte_avions_pipeline
+    from FRIGATE_07_PORTE_AVIONS.CODEBASE.porte_avions_pipeline import run_porte_avions_pipeline
     
     result = run_porte_avions_pipeline(
         video_input="/path/to/temp_render.mp4",
@@ -39,16 +39,16 @@ from pathlib import Path
 from datetime import datetime
 from typing import Dict, Any, Optional, List
 
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 try:
-    from src.config.paths import (
-        F07_OUTPUT, ASSETSHUB_PATH, DRIVE_ROOT
+    from CORE_CONFIG.paths import (
+        F06_OUTPUT, ASSETSHUB_PATH, DRIVE_ROOT
     )
-    F08_OUTPUT = f"{DRIVE_ROOT}/FRIGATE_08_PORTE_AVIONS/OUTPUT/"
+    F07_OUTPUT = f"{DRIVE_ROOT}/FRIGATE_07_PORTE_AVIONS/OUTPUT/"
 except ImportError:
-    F07_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_07_ALCHIMISTE/OUTPUT/"
-    F08_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_08_PORTE_AVIONS/OUTPUT/"
+    F06_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_06_ALCHIMISTE/OUTPUT/"
+    F07_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_07_PORTE_AVIONS/OUTPUT/"
     ASSETSHUB_PATH = "/content/drive/MyDrive/EXODUS-SPECULUM/ASSETSHUB/"
 
 from .ffmpeg_encoder import FFmpegEncoder, CODEC_PROFILES
@@ -197,7 +197,7 @@ class PorteAvionsPipeline:
         
         Args:
             video_input: temp_render.mp4 (depuis F07) ou dossier de frames
-            output_dir: Dossier de sortie (défaut: F08_OUTPUT/project_id)
+            output_dir: Dossier de sortie (défaut: F07_OUTPUT/project_id)
             duration_sec: Durée audio (défaut: détecté depuis vidéo)
             generate_audio: Générer le sound design ASMR
             asmr_config: Configuration ASMR personnalisée
@@ -215,7 +215,7 @@ class PorteAvionsPipeline:
         self._print_banner()
         
         if output_dir is None:
-            output_dir = str(Path(F08_OUTPUT) / self.project_id)
+            output_dir = str(Path(F07_OUTPUT) / self.project_id)
         Path(output_dir).mkdir(parents=True, exist_ok=True)
         
         self._log(f"\n📂 Chemins:")
@@ -358,7 +358,7 @@ class PorteAvionsPipeline:
         """Crée le manifest JSON du traitement."""
         return {
             "exodus_version": self.EXODUS_VERSION,
-            "frigate": "F08_PORTE_AVIONS",
+            "frigate": "F07_PORTE_AVIONS",
             "project_id": self.project_id,
             "timestamp": datetime.now().isoformat(),
             "input": {
@@ -411,7 +411,7 @@ def run_porte_avions_pipeline(
     
     Args:
         video_input: Chemin de la vidéo (défaut: F07_OUTPUT/temp_render.mp4)
-        output_dir: Dossier de sortie (défaut: F08_OUTPUT/project_id)
+        output_dir: Dossier de sortie (défaut: F07_OUTPUT/project_id)
         project_id: Identifiant du projet
         generate_audio: Générer le sound design ASMR
         apply_anti_fingerprint: Appliquer les variations anti-fingerprint
@@ -442,7 +442,7 @@ if __name__ == "__main__":
     print(f"\n📋 Configuration:")
     print(f"   EXODUS_VERSION: {EXODUS_VERSION}")
     print(f"   F07_OUTPUT: {F07_OUTPUT}")
-    print(f"   F08_OUTPUT: {F08_OUTPUT}")
+    print(f"   F07_OUTPUT: {F07_OUTPUT}")
     print(f"   ASSETSHUB_PATH: {ASSETSHUB_PATH}")
     
     print(f"\n📋 ASMR Defaults:")

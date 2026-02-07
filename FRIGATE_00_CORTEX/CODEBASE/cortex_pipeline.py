@@ -12,9 +12,10 @@ from typing import Dict, Any, List, Optional
 from datetime import datetime
 
 import sys
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
+PROJECT_ROOT = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(PROJECT_ROOT))
 
-from src.config.paths import F00_INPUT, F00_OUTPUT
+from CORE_CONFIG.paths import F00_INPUT, F00_OUTPUT
 
 from .gemini_client import GeminiClient
 from .room_analyzer import RoomAnalyzer
