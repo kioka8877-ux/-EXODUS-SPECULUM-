@@ -1,1 +1,0 @@
-"""EXODUS-SPECULUM - Frigates Module"""

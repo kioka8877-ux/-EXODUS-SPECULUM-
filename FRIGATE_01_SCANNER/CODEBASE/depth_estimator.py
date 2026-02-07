@@ -20,7 +20,7 @@ from PIL import Image
 import cv2
 
 try:
-    from config.paths import AI_MODELS_DIR, DEPTH_MODEL_PATH, DEPTH_MODEL_BASE_PATH
+    from CORE_CONFIG.paths import AI_MODELS_DIR, DEPTH_MODEL_PATH, DEPTH_MODEL_BASE_PATH
 except ImportError:
     AI_MODELS_DIR = "/content/drive/MyDrive/EXODUS_SHARED_RESOURCES/AI_MODELS/"
     DEPTH_MODEL_PATH = AI_MODELS_DIR + "depth_anything_v2/depth_anything_v2_vitl.pth"

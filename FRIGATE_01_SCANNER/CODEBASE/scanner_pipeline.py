@@ -11,7 +11,7 @@ from typing import Dict, Any, Optional
 from datetime import datetime
 
 try:
-    from config.paths import F01_INPUT, F01_OUTPUT
+    from CORE_CONFIG.paths import F01_INPUT, F01_OUTPUT
 except ImportError:
     F01_INPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_01_SCANNER/INPUT/"
     F01_OUTPUT = "/content/drive/MyDrive/EXODUS-SPECULUM/FRIGATE_01_SCANNER/OUTPUT/"
