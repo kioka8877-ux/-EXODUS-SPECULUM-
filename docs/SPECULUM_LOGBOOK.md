@@ -221,6 +221,24 @@
 
 ---
 
+## PHASE CONTRACTS & TESTS
+
+### CTR - Output Contracts ⬜ 0%
+
+| ID | Tâche | Status | Preuve Code |
+|----|-------|--------|-------------|
+| CTR-001 | Créer CORE_CONFIG/output_contracts.py | [ ] | - |
+| CTR-002 | Définir DELIVERY_PROFILES (STANDARD/PREMIUM/VERTICAL) | [ ] | - |
+| CTR-003 | Définir FRIGATE_CONTRACTS (F00-F07) | [ ] | - |
+| CTR-004 | Définir GLOBAL_LIMITS | [ ] | - |
+| CTR-005 | Définir FORBIDDEN rules | [ ] | - |
+| CTR-006 | Fonctions validate_file_size/validate_chunk_size | [ ] | - |
+| CTR-007 | Intégrer validation dans F01 (chunking) | [ ] | - |
+| CTR-008 | Intégrer validation dans F06 (render size) | [ ] | - |
+| CTR-009 | Intégrer validation dans F07 (final video) | [ ] | - |
+
+---
+
 ## Statistiques Certifiées
 
 | Phase | Total | Complété | % |

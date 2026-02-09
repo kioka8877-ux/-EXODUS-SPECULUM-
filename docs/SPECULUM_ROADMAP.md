@@ -173,6 +173,23 @@
 
 ---
 
+## Phase 2.5: CONTRACTS & VALIDATION
+
+**Objectif:** Garantir qualité et limites de poids à chaque étape.
+
+### Sous-Phase A: Output Contracts (CTR)
+| ID | Tâche | Status | ETA |
+|----|-------|--------|-----|
+| CTR-001→006 | output_contracts.py complet | ⬜ | J1-2 |
+| CTR-007→009 | Intégration F01/F06/F07 | ⬜ | J3 |
+
+### Livrables Phase 2.5A
+- [ ] CORE_CONFIG/output_contracts.py
+- [ ] Validation intégrée dans pipelines critiques
+- [ ] LOGBOOK mis à jour
+
+---
+
 ## Phase 3: INDUSTRIALISATION (Semaine 7-8)
 
 **Objectif:** Production automatisée multi-variant.
