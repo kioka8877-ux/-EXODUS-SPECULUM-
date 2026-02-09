@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "SPECULUM Depth Contract",
+    "description": "Contract for depth map outputs from F01 SCANNER",
+    "dtype": "uint16",
+    "bit_depth": 16,
+    "resolution": {
+        "min": [480, 270],
+        "max": [7680, 4320]
+    },
+    "value_range": {
+        "min": 0,
+        "max": 65535
+    },
+    "file_size_kb": {
+        "min": 100,
+        "max": 50000
+    },
+    "file_format": {
+        "extension": ".png",
+        "color_type": "grayscale",
+        "compression": "deflate"
+    },
+    "naming_convention": "depth_{frame:06d}.png",
+    "metadata_required": ["width", "height", "dtype"]
+}

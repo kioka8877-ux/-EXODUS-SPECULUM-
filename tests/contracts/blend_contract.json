@@ -1,0 +1,27 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "SPECULUM Blend Contract",
+    "description": "Contract for Blender scene files (F02-F05)",
+    "file_format": {
+        "extension": ".blend",
+        "min_blender_version": "3.6.0"
+    },
+    "required_collections": {
+        "scene_shell": ["ROOM_SHELL", "PROXIES"],
+        "scene_projected": ["ROOM_SHELL", "PROXIES", "CAMERAS"],
+        "scene_furnished": ["ROOM_SHELL", "FURNITURE", "CAMERAS"],
+        "scene_animated": ["ROOM_SHELL", "FURNITURE", "CAMERAS"]
+    },
+    "metadata_embedded": true,
+    "constraints": {
+        "max_vertices": 500000,
+        "max_faces": 500000,
+        "max_objects": 1000,
+        "max_file_size_mb": 500
+    },
+    "validation_rules": [
+        "All objects must have valid transforms",
+        "No orphaned data blocks",
+        "Materials must be node-based"
+    ]
+}
