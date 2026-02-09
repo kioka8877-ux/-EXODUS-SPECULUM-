@@ -1,0 +1,107 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "SPECULUM Masterplan",
+    "description": "Schema for CORTEX masterplan output",
+    "type": "object",
+    "required": ["project_id", "rooms", "camera_path"],
+    "properties": {
+        "project_id": {
+            "type": "string",
+            "description": "Unique identifier for the project"
+        },
+        "version": {
+            "type": "string",
+            "description": "Schema version"
+        },
+        "source_video": {
+            "type": "string",
+            "description": "Path to source video"
+        },
+        "rooms": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "type": "object",
+                "required": ["id", "name", "type"],
+                "properties": {
+                    "id": {"type": "string"},
+                    "name": {"type": "string"},
+                    "type": {
+                        "type": "string",
+                        "enum": ["living", "bedroom", "kitchen", "bathroom", "office", "dining", "hallway", "other"]
+                    },
+                    "dimensions": {
+                        "type": "object",
+                        "properties": {
+                            "width": {"type": "number", "minimum": 0},
+                            "length": {"type": "number", "minimum": 0},
+                            "height": {"type": "number", "minimum": 0}
+                        }
+                    },
+                    "pois": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "required": ["id", "type"],
+                            "properties": {
+                                "id": {"type": "string"},
+                                "type": {"type": "string"},
+                                "position": {
+                                    "type": "array",
+                                    "items": {"type": "number"},
+                                    "minItems": 3,
+                                    "maxItems": 3
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "camera_path": {
+            "type": "object",
+            "required": ["type", "keyframes"],
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "enum": ["linear", "bezier", "spline"]
+                },
+                "keyframes": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": ["frame"],
+                        "properties": {
+                            "frame": {"type": "integer", "minimum": 0},
+                            "position": {
+                                "type": "array",
+                                "items": {"type": "number"},
+                                "minItems": 3,
+                                "maxItems": 3
+                            },
+                            "rotation": {
+                                "type": "array",
+                                "items": {"type": "number"},
+                                "minItems": 3,
+                                "maxItems": 3
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "metadata": {
+            "type": "object",
+            "properties": {
+                "duration_sec": {"type": "number", "minimum": 0},
+                "fps": {"type": "integer", "minimum": 1, "maximum": 120},
+                "resolution": {
+                    "type": "array",
+                    "items": {"type": "integer", "minimum": 1},
+                    "minItems": 2,
+                    "maxItems": 2
+                }
+            }
+        }
+    }
+}
