@@ -1,5 +1,5 @@
 # SPECULUM_STATE.md - Phylactère de Résurrection
-> État actuel du système EXODUS-SPECULUM (Synchronisé 2026-02-07)
+> État actuel du système EXODUS-SPECULUM (Synchronisé 2026-02-10)
 
 ---
 
@@ -64,7 +64,7 @@ ffmpeg-python>=0.2.0
 | ID | Nom | LOC | Classes | Complétion | Status |
 |----|-----|-----|---------|------------|--------|
 | F00 | CORTEX | 593 | 4/4 | **95%** | ✅ OPÉRATIONNEL |
-| F01 | SCANNER | 1146 | 5/5 | **95%** | ✅ OPÉRATIONNEL |
+| F01 | SCANNER | 1146 | 5/5 | **100%** | ✅ PRODUCTION |
 | F02 | SCÉNOGRAPHE | 776 | 4/4 | **95%** | ✅ OPÉRATIONNEL |
 | F03 | PROJECTIONNISTE | 1011 | 4/4 | **95%** | ✅ OPÉRATIONNEL |
 | F04 | LOGISTIQUE | 1278 | 5/5 | **95%** | ✅ OPÉRATIONNEL |
@@ -142,7 +142,7 @@ ffmpeg-python>=0.2.0
 | Frégate | Gap | Priorité |
 |---------|-----|----------|
 | F00 | Tests unitaires T02-* | Medium |
-| F01 | Tests unitaires T01-* | Medium |
+
 | F02 | Calibration displacement visual | Low |
 | F03 | Tests parallax drift | Medium |
 | F04 | Validation ASSETSHUB réel | High |
@@ -166,5 +166,5 @@ ffmpeg-python>=0.2.0
 
 ---
 
-*Dernière synchronisation: 2026-02-07 - Protocole SCALPEL*
+*Dernière synchronisation: 2026-02-10 - Protocole SCALPEL*
 *Version: 1.0.0-CERTIFIED*
