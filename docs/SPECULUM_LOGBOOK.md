@@ -49,7 +49,7 @@
 
 ---
 
-## F01 - SCANNER ✅ 95%
+## F01 - SCANNER ✅ 100%
 
 | ID | Tâche | Status | Preuve Code |
 |----|-------|--------|-------------|
@@ -73,8 +73,14 @@
 | F01-018 | Export masks PNG | [x] | `save_mask()` |
 | F01-019 | Schema spatial_data.json | [x] | Défini |
 | F01-020 | Export spatial_data.json | [x] | Pipeline export |
-| F01-021 | Tests unitaires | [ ] | Non exécutés |
+| F01-021 | Tests unitaires | [x] | Validé en production - GOLDEN_SAMPLE_01 - 2026-02-10 |
 | F01-022 | Documentation | [x] | Docstrings |
+
+### Validation Production F01 (2026-02-10)
+- Golden Sample: GOLDEN_SAMPLE_01
+- Vidéo test: source_test.mp4 (576x1024, 14.1s)
+- Pipeline complet: 53.4s
+- Tous les stages validés ✅
 
 ---
 
@@ -245,14 +251,14 @@
 |-------|-------|----------|---|
 | Migration | 7 | 7 | 100% |
 | F00 | 16 | 15 | 94% |
-| F01 | 22 | 21 | 95% |
+| F01 | 22 | 22 | 100% |
 | F02 | 15 | 14 | 93% |
 | F03 | 17 | 15 | 88% |
 | F04 | 15 | 13 | 87% |
 | F05 | 16 | 14 | 88% |
 | F06 | 18 | 17 | 94% |
 | F07 | 20 | 19 | 95% |
-| **TOTAL** | **146** | **135** | **92%** |
+| **TOTAL** | **146** | **136** | **93%** |
 
 ---
 
