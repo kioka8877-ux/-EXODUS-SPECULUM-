@@ -4,12 +4,11 @@ EXODUS-SPECULUM - Frégate CORTEX - Pipeline Complet
 Orchestre l'analyse IA et génère le masterplan.json.
 """
 
-import os
 import json
 import time
 from pathlib import Path
 from typing import Dict, Any, List, Optional
-from datetime import datetime
+
 
 import sys
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
@@ -45,7 +44,7 @@ class CortexPipeline:
         self.room_analyzer = None
         self.poi_detector = None
         
-        print(f"🧠 Cortex Pipeline initialisé")
+        print("🧠 Cortex Pipeline initialisé")
         print(f"   Project ID: {project_id}")
         print(f"   Input: {self.input_dir}")
         print(f"   Output: {self.output_dir}")
@@ -56,6 +55,75 @@ class CortexPipeline:
             self.client = GeminiClient()
             self.room_analyzer = RoomAnalyzer(self.client)
             self.poi_detector = POIDetector(self.client)
+    
+    def _map_room_type(self, room_type: str) -> str:
+        """Mappe les types Gemini vers les types du schema."""
+        mapping = {
+            "living_room": "living",
+            "bedroom": "bedroom",
+            "kitchen": "kitchen",
+            "bathroom": "bathroom",
+            "office": "office",
+            "dining_room": "dining",
+            "hallway": "hallway"
+        }
+        return mapping.get(room_type, "other")
+    
+    def _get_room_name(self, room_type: str) -> str:
+        """Génère un nom lisible."""
+        names = {
+            "living_room": "Salon",
+            "bedroom": "Chambre",
+            "kitchen": "Cuisine",
+            "bathroom": "Salle de bain",
+            "office": "Bureau",
+            "dining_room": "Salle à manger",
+            "hallway": "Couloir"
+        }
+        return names.get(room_type, "Pièce")
+    
+    def _convert_pois_to_3d(self, pois: list) -> list:
+        """Convertit POIs 2D en format 3D schema."""
+        result = []
+        for i, poi in enumerate(pois):
+            pos = poi.get("position", {})
+            result.append({
+                "id": f"poi_{i+1:03d}",
+                "type": poi.get("type", "other"),
+                "position": [
+                    pos.get("x_percent", 50) / 10,
+                    pos.get("y_percent", 50) / 10,
+                    0.5
+                ]
+            })
+        return result
+    
+    def _generate_camera_path(self, dimensions: dict, frame_count: int) -> dict:
+        """Génère un camera_path linéaire traversant la pièce."""
+        width = dimensions.get("width", 5.0)
+        length = dimensions.get("length", 6.0)
+        height = 1.6
+        
+        return {
+            "type": "linear",
+            "keyframes": [
+                {
+                    "frame": 0,
+                    "position": [0.5, 0.5, height],
+                    "rotation": [90, 0, 0]
+                },
+                {
+                    "frame": frame_count // 2,
+                    "position": [width / 2, length / 2, height],
+                    "rotation": [90, 0, 0]
+                },
+                {
+                    "frame": frame_count - 1,
+                    "position": [width - 0.5, length - 0.5, height],
+                    "rotation": [90, 0, 0]
+                }
+            ]
+        }
     
     def select_keyframes(self, 
                          frames_dir: Path,
@@ -143,37 +211,35 @@ class CortexPipeline:
         
         total_time = time.time() - start_time
         
+        est_dims = room_analysis.get("estimated_dimensions", {})
+        dimensions = {
+            "width": est_dims.get("width_meters", 5.0),
+            "length": est_dims.get("length_meters", 6.0),
+            "height": est_dims.get("height_meters", 2.8)
+        }
+        
+        frame_count = len(list((frames_dir).glob("*.png"))) or len(list((frames_dir).glob("*.jpg"))) or 60
+        
         masterplan = {
             "project_id": self.project_id,
-            "generated_at": datetime.now().isoformat(),
-            "gemini_model": GeminiClient.MODEL_NAME,
-            "keyframes_analyzed": len(keyframes),
+            "version": "1.0",
+            "source_video": f"{self.project_id}.mp4",
             
-            "room": {
-                "type": room_analysis.get("room_type"),
+            "rooms": [{
+                "id": "room_001",
+                "name": self._get_room_name(room_analysis.get("room_type")),
+                "type": self._map_room_type(room_analysis.get("room_type")),
                 "style": room_analysis.get("style"),
-                "dimensions": room_analysis.get("estimated_dimensions"),
-            },
+                "dimensions": dimensions,
+                "pois": self._convert_pois_to_3d(poi_data.get("points_of_interest", []))
+            }],
             
-            "materials": room_analysis.get("materials", []),
+            "camera_path": self._generate_camera_path(dimensions, frame_count),
             
-            "furniture": room_analysis.get("furniture", []),
-            
-            "lighting": room_analysis.get("lighting"),
-            
-            "poi": {
-                "points": poi_data.get("points_of_interest", []),
-                "primary_focal_point": poi_data.get("primary_focal_point"),
-                "heatmap_32x32": heatmap.tolist(),
-                "optimal_crop_center": {
-                    "x_percent": crop_center[0],
-                    "y_percent": crop_center[1]
-                }
-            },
-            
-            "processing": {
-                "time_seconds": total_time,
-                "api_calls": self.client.request_count
+            "metadata": {
+                "duration_sec": total_time,
+                "fps": 24,
+                "resolution": [1920, 1080]
             }
         }
         
@@ -189,10 +255,10 @@ class CortexPipeline:
         print("RÉSUMÉ FRÉGATE CORTEX")
         print("=" * 60)
         print(f"  Projet: {self.project_id}")
-        print(f"  Type de pièce: {masterplan['room']['type']}")
-        print(f"  Style: {masterplan['room']['style']}")
-        print(f"  Meubles détectés: {len(masterplan['furniture'])}")
-        print(f"  POI détectés: {len(masterplan['poi']['points'])}")
+        print(f"  Type de pièce: {masterplan['rooms'][0]['type']}")
+        print(f"  Style: {masterplan['rooms'][0].get('style', 'N/A')}")
+        print(f"  POI détectés: {len(masterplan['rooms'][0]['pois'])}")
+        print(f"  Camera keyframes: {len(masterplan['camera_path']['keyframes'])}")
         print(f"  Appels API: {self.client.request_count}")
         print(f"  Temps total: {total_time:.1f}s")
         print("=" * 60)
