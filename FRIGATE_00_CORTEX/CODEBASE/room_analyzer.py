@@ -111,8 +111,8 @@ class RoomAnalyzer:
             print(f"   ✅ Style: {result['data'].get('style', 'unknown')}")
             return result["data"]
         else:
-            print(f"   ⚠️ Analyse partielle: {result.get('error', 'No data')}")
-            return result
+            print(f"   ⚠️ Analyse échouée: {result.get('error', 'No data')}")
+            return {"error": result.get("error"), "raw": result.get("raw_response")}
     
     def estimate_dimensions(self, image_path: str) -> Dict[str, Any]:
         """Estime les dimensions de la pièce."""
@@ -160,8 +160,8 @@ class RoomAnalyzer:
             return {}
         
         base = analyses[0]["analysis"]
-        if not isinstance(base, dict):
-            return {"raw_analyses": analyses}
+        if not isinstance(base, dict) or "error" in base:
+            return {"error": "Analysis failed", "raw_analyses": analyses}
         
         all_furniture = []
         all_materials = []

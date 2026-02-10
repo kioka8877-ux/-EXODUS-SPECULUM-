@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
 EXODUS-SPECULUM - Frégate CORTEX - Client Gemini
-Gestion de l'API Gemini 1.5 Pro avec rate limiting.
+Gestion de l'API Gemini avec rate limiting.
+Modèle configurable via env var GEMINI_MODEL.
 """
 
 import os
@@ -13,21 +14,26 @@ from typing import Dict, Any, List, Optional
 import google.generativeai as genai
 
 
+DEFAULT_MODEL = "gemini-2.0-flash"
+FALLBACK_MODELS = ["gemini-1.5-flash", "gemini-pro"]
+
+
 class GeminiClient:
     """
-    Client pour Gemini 1.5 Pro avec gestion des rate limits.
+    Client pour Gemini avec gestion des rate limits.
+    Modèle configurable via GEMINI_MODEL env var.
     
     Free tier: 1500 req/jour, 60 QPM (1 req/sec)
     """
     
-    MODEL_NAME = "gemini-1.5-pro"
     MIN_REQUEST_INTERVAL = 1.1
     MAX_RETRIES = 3
     
-    def __init__(self, api_key: Optional[str] = None):
+    def __init__(self, api_key: Optional[str] = None, model_name: Optional[str] = None):
         """
         Args:
             api_key: Clé API Gemini (ou via GEMINI_API_KEY env var)
+            model_name: Nom du modèle (ou via GEMINI_MODEL env var, défaut: gemini-2.0-flash)
         """
         self.api_key = api_key or os.environ.get("GEMINI_API_KEY")
         if not self.api_key:
@@ -36,13 +42,15 @@ class GeminiClient:
                 "Définir via: os.environ['GEMINI_API_KEY'] = 'votre_clé'"
             )
         
+        self.model_name = model_name or os.environ.get("GEMINI_MODEL", DEFAULT_MODEL)
+        
         genai.configure(api_key=self.api_key)
-        self.model = genai.GenerativeModel(self.MODEL_NAME)
+        self.model = genai.GenerativeModel(self.model_name)
         self.last_request_time = 0
         self.request_count = 0
         
         print(f"🧠 GeminiClient initialisé")
-        print(f"   Modèle: {self.MODEL_NAME}")
+        print(f"   Modèle: {self.model_name}")
     
     def _wait_for_rate_limit(self):
         """Attend si nécessaire pour respecter le rate limit."""
@@ -97,6 +105,13 @@ class GeminiClient:
             
             self.last_request_time = time.time()
             self.request_count += 1
+            
+            if not response or not response.text:
+                return {
+                    "status": "error",
+                    "error": "API returned empty response",
+                    "data": None
+                }
             
             text = response.text
             try:
@@ -160,6 +175,13 @@ class GeminiClient:
             
             self.last_request_time = time.time()
             self.request_count += 1
+            
+            if not response or not response.text:
+                return {
+                    "status": "error",
+                    "error": "API returned empty response",
+                    "data": None
+                }
             
             text = response.text
             try:

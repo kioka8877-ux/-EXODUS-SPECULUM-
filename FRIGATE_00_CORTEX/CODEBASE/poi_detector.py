@@ -57,7 +57,10 @@ class POIDetector:
             Dict avec POI et focal point
         """
         result = self.client.analyze_image(image_path, POI_PROMPT)
-        return result.get("data", {})
+        data = result.get("data")
+        if data is None:
+            return {"points_of_interest": [], "primary_focal_point": None, "error": result.get("error")}
+        return data
     
     def generate_heatmap(self, 
                          poi_data: Dict[str, Any],
