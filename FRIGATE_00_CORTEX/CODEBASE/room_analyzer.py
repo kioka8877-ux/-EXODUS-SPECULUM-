@@ -13,12 +13,20 @@ from .gemini_client import GeminiClient
 ROOM_ANALYSIS_PROMPT = """
 Analyse cette image d'intérieur immobilier et retourne un JSON avec:
 
+IMPORTANT pour les dimensions:
+- Un canapé standard fait ~2m de long
+- Une porte standard fait ~2m de haut et ~0.9m de large
+- Un lit double fait ~1.6m x 2m
+- Utilise ces références pour estimer les dimensions RÉALISTES de la pièce
+- Une pièce de salon typique fait 4-6m de large, pas 10-15m
+
 {
     "room_type": "living_room|bedroom|kitchen|bathroom|office|dining_room|hallway|other",
     "estimated_dimensions": {
-        "width_meters": float,
-        "length_meters": float,
-        "height_meters": float,
+        "width_meters": float (utiliser meubles comme référence, typiquement 3-8m),
+        "length_meters": float (utiliser meubles comme référence, typiquement 3-10m),
+        "height_meters": float (typiquement 2.5-3.5m),
+        "reference_objects": ["liste des objets utilisés pour calibrer"],
         "confidence": "high|medium|low"
     },
     "materials": [
