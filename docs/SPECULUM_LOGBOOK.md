@@ -46,6 +46,10 @@
 | F00-014 | POI heatmap | [x] | `POIDetector.generate_heatmap()` |
 | F00-015 | Tests unitaires | [ ] | Non exécutés |
 | F00-016 | Documentation | [x] | Docstrings |
+| F00-017 | Migration Gemini 2.5 Flash | [x] | `DEFAULT_MODEL = "gemini-2.5-flash"` |
+| F00-018 | Single-call multi-image (3 frames + POI) | [x] | `RoomAnalyzer.analyze_all_in_one()` |
+| F00-019 | Prompt unifié room+POI | [x] | `UNIFIED_ANALYSIS_PROMPT` in room_analyzer.py |
+| F00-020 | Rate limit interval 60s | [x] | `MIN_REQUEST_INTERVAL = 60` |
 
 ---
 
@@ -250,7 +254,7 @@
 | Phase | Total | Complété | % |
 |-------|-------|----------|---|
 | Migration | 7 | 7 | 100% |
-| F00 | 16 | 15 | 94% |
+| F00 | 20 | 19 | 95% |
 | F01 | 22 | 22 | 100% |
 | F02 | 15 | 14 | 93% |
 | F03 | 17 | 15 | 88% |
@@ -258,7 +262,7 @@
 | F05 | 16 | 14 | 88% |
 | F06 | 18 | 17 | 94% |
 | F07 | 20 | 19 | 95% |
-| **TOTAL** | **146** | **136** | **93%** |
+| **TOTAL** | **150** | **140** | **93%** |
 
 ---
 

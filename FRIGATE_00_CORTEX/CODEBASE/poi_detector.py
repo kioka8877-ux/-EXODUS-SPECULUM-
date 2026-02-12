@@ -2,6 +2,10 @@
 """
 EXODUS-SPECULUM - Frégate CORTEX - Détecteur de Points d'Intérêt
 Génère une heatmap des zones importantes pour le Smart-Crop.
+
+Note PHÉNIX-SOUVERAIN: La détection POI est désormais intégrée dans
+l'appel unifié de RoomAnalyzer.analyze_all_in_one(). La méthode
+detect_poi() reste disponible pour usage standalone.
 """
 
 import numpy as np

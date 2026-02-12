@@ -27,15 +27,17 @@
 | ID | Test | Input | Expected Output | Tolérance | Status |
 |----|------|-------|-----------------|-----------|--------|
 | T02-001 | Gemini API connection | API key | 200 response | - | ⬜ |
-| T02-002 | Vision analysis | 3 keyframes | JSON response | - | ⬜ |
+| T02-002 | Vision analysis | 3 keyframes multi-image single call | Combined JSON (room + POI) | - | ⬜ |
 | T02-003 | Room type detection | Living room image | "living_room" string | - | ⬜ |
 | T02-004 | Dimensions estimation | Standard room | 3-10m per dimension | ±50% | ⬜ |
 | T02-005 | Materials detection | Room with hardwood | "hardwood" in materials | - | ⬜ |
 | T02-006 | Furniture count | Room with 5 items | ≥3 items detected | - | ⬜ |
 | T02-007 | masterplan.json schema | Full analysis | Valid JSON schema | - | ⬜ |
 | T02-008 | POI heatmap generation | Keyframes | 32x32 float array | - | ⬜ |
-| T02-009 | Rate limit handling | 70 rapid calls | Retry success | - | ⬜ |
+| T02-009 | Rate limit handling | 5 rapid calls (60s interval) | Retry success | - | ⬜ |
 | T02-010 | Cache hit | Repeated call | No API call | - | ⬜ |
+| T02-011 | Single-call multi-image | 3 keyframes in 1 call | Combined room+POI JSON | - | ⬜ |
+| T02-012 | Unified prompt parsing | Multi-image response | Separate room_data + poi_data | - | ⬜ |
 
 ### F03-SCÉNOGRAPHE Tests
 

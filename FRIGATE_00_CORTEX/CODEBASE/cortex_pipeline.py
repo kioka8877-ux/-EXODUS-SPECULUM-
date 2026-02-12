@@ -193,13 +193,9 @@ class CortexPipeline:
         for kf in keyframes:
             print(f"      - {Path(kf).name}")
         
-        print("\n🔍 Stage 2: Analyse des pièces")
-        room_analysis = self.room_analyzer.analyze_keyframes(keyframes)
-        
-        print("\n🎯 Stage 3: Détection des Points d'Intérêt")
-        
-        central_frame = keyframes[len(keyframes) // 2]
-        poi_data = self.poi_detector.detect_poi(central_frame)
+        # PHÉNIX-SOUVERAIN: Single-call multi-image (room + POI)
+        print("\n🔍 Stage 2: Analyse unifiée (Room + POI) — Single Call")
+        room_analysis, poi_data = self.room_analyzer.analyze_all_in_one(keyframes)
         
         heatmap = self.poi_detector.generate_heatmap(poi_data)
         crop_center = self.poi_detector.get_crop_center(heatmap)
@@ -207,7 +203,7 @@ class CortexPipeline:
         print(f"   POI détectés: {len(poi_data.get('points_of_interest', []))}")
         print(f"   Centre optimal crop: ({crop_center[0]:.1f}%, {crop_center[1]:.1f}%)")
         
-        print("\n📋 Stage 4: Génération du masterplan")
+        print("\n📋 Stage 3: Génération du masterplan")
         
         total_time = time.time() - start_time
         
@@ -259,7 +255,7 @@ class CortexPipeline:
         print(f"  Style: {masterplan['rooms'][0].get('style', 'N/A')}")
         print(f"  POI détectés: {len(masterplan['rooms'][0]['pois'])}")
         print(f"  Camera keyframes: {len(masterplan['camera_path']['keyframes'])}")
-        print(f"  Appels API: {self.client.request_count}")
+        print(f"  Appels API: {self.client.request_count} (optimisé single-call)")
         print(f"  Temps total: {total_time:.1f}s")
         print("=" * 60)
         

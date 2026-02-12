@@ -42,9 +42,11 @@
 | P0-006 | Setup Blender headless sur Colab | ⬜ À faire | - | J3-4 |
 | P0-007 | Test Gemini API integration | ⬜ À faire | - | J4 |
 | P0-008 | Structure ASSETSHUB | ⬜ À faire | - | J5 |
+| P0-009 | Optimisation CORTEX single-call Gemini 2.5 Flash | ✅ Complété | Vulkan | J7 |
 
 ### Livrables Phase 0
 - [x] Documentation complète (6 fichiers)
+- [x] F00 CORTEX optimisé single-call (4→1 API calls)
 - [ ] Repository structuré
 - [ ] Colab notebook fonctionnel (vide mais exécutable)
 - [ ] Dépendances installables en <5min
@@ -419,7 +421,7 @@ Tâches restantes
 - **Colab temp:** 100GB pour processing
 
 ### APIs
-- **Gemini:** Free tier (60 QPM)
+- **Gemini:** Free tier 2.5 Flash (250 RPD, 10 RPM)
 - **YouTube API:** Free tier (si automation)
 
 ---
@@ -433,5 +435,5 @@ Tâches restantes
 
 ---
 
-*Dernière mise à jour: 2026-02-06*
+*Dernière mise à jour: 2026-02-12*
 *Responsable: Vulkan, Maître de la Forge*
