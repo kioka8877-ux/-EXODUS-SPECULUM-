@@ -22,7 +22,7 @@
 |------------|--------|---------------|
 | Budget | 0€ | Outils gratuits uniquement |
 | Hardware | Google Colab T4 | 16GB VRAM max |
-| API Costs | Free tier only | Gemini 60 QPM |
+| API Costs | Free tier only | Gemini 2.5 Flash 250 RPD, 10 RPM |
 | Runtime | <3h/video (CONQUÉRANT) | Colab timeout |
 | Output Quality | ≥1080p/24fps minimum | Platform requirements |
 
@@ -40,7 +40,7 @@
 ├──────────────┼──────────────────────────────────────────────────┤
 │ SEGMENTATION │ Segment Anything Model (SAM)                     │
 ├──────────────┼──────────────────────────────────────────────────┤
-│ AI VISION    │ Gemini 1.5 Pro (via google-generativeai)        │
+│ AI VISION    │ Gemini 2.5 Flash (via google-generativeai)       │
 ├──────────────┼──────────────────────────────────────────────────┤
 │ 3D ENGINE    │ Blender 4.0+ (bpy headless)                     │
 ├──────────────┼──────────────────────────────────────────────────┤
@@ -322,12 +322,13 @@ spatial_data.json
    - Frame 100% (fin)
    - Frames avec rotation >15°
 
-2. **Analyse Gemini 1.5 Pro**
+2. **Analyse Gemini 2.5 Flash (Single-Call Multi-Image)**
+   Optimisé single-call: 3 keyframes + POI en 1 requête.
    ```python
    import google.generativeai as genai
    
    genai.configure(api_key=GEMINI_API_KEY)
-   model = genai.GenerativeModel('gemini-1.5-pro')
+   model = genai.GenerativeModel('gemini-2.5-flash')
    
    prompt = """
    Analyze this real estate video frames and provide:

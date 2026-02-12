@@ -1,5 +1,5 @@
 # SPECULUM_STATE.md - Phylactère de Résurrection
-> État actuel du système EXODUS-SPECULUM (Synchronisé 2026-02-10)
+> État actuel du système EXODUS-SPECULUM (Synchronisé 2026-02-12)
 
 ---
 
@@ -23,7 +23,7 @@ torchvision>=0.15.0+cu118
 depth-anything-v2
 ultralytics>=8.0.0
 segment-anything
-google-generativeai>=0.3.0
+google-generativeai>=0.3.0  # Gemini 2.5 Flash
 bpy==4.0.0
 opencv-python>=4.8.0
 numpy>=1.24.0
@@ -82,7 +82,7 @@ ffmpeg-python>=0.2.0
 ## 4. Classes Implémentées par Frégate
 
 ### F00 - CORTEX
-- `GeminiClient` - API Gemini 1.5 Pro
+- `GeminiClient` - API Gemini 2.5 Flash (multi-image optimisé)
 - `RoomAnalyzer` - Analyse dimensions/matériaux
 - `POIDetector` - Détection points d'intérêt
 - `CortexPipeline` - Orchestrateur
@@ -141,7 +141,7 @@ ffmpeg-python>=0.2.0
 
 | Frégate | Gap | Priorité |
 |---------|-----|----------|
-| F00 | Tests unitaires T02-* | Medium |
+| F00 | Tests unitaires T02-* + validation single-call | Medium |
 
 | F02 | Calibration displacement visual | Low |
 | F03 | Tests parallax drift | Medium |
@@ -166,5 +166,5 @@ ffmpeg-python>=0.2.0
 
 ---
 
-*Dernière synchronisation: 2026-02-10 - Protocole SCALPEL*
+*Dernière synchronisation: 2026-02-12 - Protocole SCALPEL*
 *Version: 1.0.0-CERTIFIED*

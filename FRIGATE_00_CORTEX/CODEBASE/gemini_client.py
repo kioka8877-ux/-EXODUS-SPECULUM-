@@ -14,8 +14,8 @@ from typing import Dict, Any, List, Optional
 import google.generativeai as genai
 
 
-DEFAULT_MODEL = "gemini-2.0-flash"
-FALLBACK_MODELS = ["gemini-1.5-flash", "gemini-pro"]
+DEFAULT_MODEL = "gemini-2.5-flash"
+FALLBACK_MODELS = ["gemini-2.0-flash", "gemini-1.5-flash"]
 
 
 class GeminiClient:
@@ -23,10 +23,11 @@ class GeminiClient:
     Client pour Gemini avec gestion des rate limits.
     Modèle configurable via GEMINI_MODEL env var.
     
-    Free tier: 1500 req/jour, 60 QPM (1 req/sec)
+    Free tier Gemini 2.5 Flash: 250 RPD, 10 RPM (1 req/min)
+    Optimisé single-call multi-image pour réduire la consommation.
     """
     
-    MIN_REQUEST_INTERVAL = 1.1
+    MIN_REQUEST_INTERVAL = 60
     MAX_RETRIES = 3
     
     def __init__(self, api_key: Optional[str] = None, model_name: Optional[str] = None):
@@ -152,13 +153,16 @@ class GeminiClient:
     
     def analyze_multiple_images(self,
                                  image_paths: List[str],
-                                 prompt: str) -> Dict[str, Any]:
+                                 prompt: str,
+                                 retry_count: int = 0) -> Dict[str, Any]:
         """
-        Analyse plusieurs images ensemble.
+        Analyse plusieurs images ensemble en un seul appel.
+        Optimisé PHÉNIX-SOUVERAIN: 3 keyframes + 1 prompt = 1 requête.
         
         Args:
             image_paths: Liste des chemins d'images
             prompt: Prompt d'analyse
+            retry_count: Compteur de retry (interne)
             
         Returns:
             Dict avec la réponse
@@ -187,6 +191,8 @@ class GeminiClient:
             try:
                 if "```json" in text:
                     json_str = text.split("```json")[1].split("```")[0]
+                elif "```" in text:
+                    json_str = text.split("```")[1].split("```")[0]
                 else:
                     json_str = text
                 return {
@@ -202,8 +208,17 @@ class GeminiClient:
                 }
                 
         except Exception as e:
+            error_msg = str(e)
+            
+            if "429" in error_msg or "quota" in error_msg.lower():
+                if retry_count < self.MAX_RETRIES:
+                    wait_time = (retry_count + 1) * 60
+                    print(f"   ⚠️ Rate limit multi-image, attente {wait_time}s...")
+                    time.sleep(wait_time)
+                    return self.analyze_multiple_images(image_paths, prompt, retry_count + 1)
+            
             return {
                 "status": "error",
-                "error": str(e),
+                "error": error_msg,
                 "data": None
             }

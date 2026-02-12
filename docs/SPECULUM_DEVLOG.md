@@ -30,6 +30,49 @@
 
 ---
 
+### [2026-02-12] - F00-CORTEX: Optimisation PHÉNIX-SOUVERAIN — Single-Call Multi-Image
+
+**Contexte:**
+Le free tier Gemini a été réduit de 1500 à 250 RPD (décembre 2025). L'ancien pipeline F00 consommait 4 appels API par vidéo (3 analyze_room + 1 detect_poi), causant des erreurs 429 après ~60 vidéos/jour. Pour un objectif de 20 vidéos/jour, il fallait optimiser drastiquement.
+
+**Solution:**
+- Migration de `gemini-2.0-flash` vers `gemini-2.5-flash` (stable, meilleur vision)
+- Consolidation de 4 appels en 1 seul via `analyze_multiple_images()` qui envoie les 3 keyframes + un prompt unifié combinant analyse de pièce ET détection POI
+- Augmentation de `MIN_REQUEST_INTERVAL` de 1.1s à 60s pour rester dans les 10 RPM
+- Ajout retry 429 sur `analyze_multiple_images()` (manquait)
+
+**Code critique:**
+```python
+# Nouveau prompt unifié dans room_analyzer.py
+UNIFIED_ANALYSIS_PROMPT = """
+Analyse ces 3 images d'intérieur (début, milieu, fin d'une vidéo) et retourne un JSON combiné...
+"""
+
+# Nouvelle méthode dans RoomAnalyzer
+def analyze_all_in_one(self, keyframe_paths, central_index=1):
+    result = self.client.analyze_multiple_images(keyframe_paths, UNIFIED_ANALYSIS_PROMPT)
+    # Parse combined room + POI response
+    return room_data, poi_data
+
+# Pipeline simplifié dans cortex_pipeline.py
+room_analysis, poi_data = self.room_analyzer.analyze_all_in_one(keyframes)
+# Plus besoin de self.poi_detector.detect_poi() séparé
+```
+
+**Résultats:**
+- API calls par vidéo: 4 → 1 (réduction 75%)
+- 20 vidéos/jour = 20 requêtes = 8% du quota (250 RPD)
+- Tokens par requête: ~774 tokens images (3 frames 258px) = 0.3% du TPM
+- Erreurs 429: éliminées
+
+**Leçon apprise:**
+L'API Gemini supporte jusqu'à 3600 images par requête. Envoyer plusieurs images avec un prompt unique est toujours préférable à des appels séparés — même qualité, fraction du coût en quota.
+
+**Liens:**
+- PR: PHÉNIX-SOUVERAIN optimization
+
+---
+
 ### [2026-02-07] - Migration V2-REBIRTH: Restructuration Complète
 
 **Contexte:**
@@ -278,6 +321,9 @@ pass
 ### Depth Estimation
 - [2026-02-06] F01-A: Depth Anything V2 integration
 
+### Gemini API
+- [2026-02-12] F00-CORTEX: Single-call multi-image optimization
+
 ### Camera Projection
 - [2026-02-06] F04-A: Frégate PROJECTIONNISTE - Camera Projection Mapping
 
@@ -300,6 +346,7 @@ pass
 
 | Date | Problème | Solution | Tags |
 |------|----------|----------|------|
+| 2026-02-12 | Gemini 429 rate limits | Single-call multi-image + 60s interval | gemini, rate-limit, optimization |
 | - | - | - | - |
 
 ---
@@ -362,5 +409,5 @@ ffmpeg -y -i input.mp4 -vf fps=2.0 -pix_fmt rgb24 frame_%04d.png
 
 ---
 
-*Dernière mise à jour: 2026-02-07*
-*Entrées: 5*
+*Dernière mise à jour: 2026-02-12*
+*Entrées: 6*
